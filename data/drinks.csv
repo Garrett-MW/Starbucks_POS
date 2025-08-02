@@ -1,0 +1,84 @@
+item_name,category,abrev,modifications,price,available
+Blonde Roast - Sunsera,brewed,BR-S,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Blonde Roast - Veranda,brewed,BR-V,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Medium Roast - Pike Place Roast,brewed,MR-PPR,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Dark Roast - Sumatra,brewed,DR-S,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Dark Roast - Caffe Verona,brewed,DR-V,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Decaf Roast - Pike Place Roast,brewed,DfR-PPR,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Caffe Misto,brewed,CMs,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Iced Coffee,brewed,IC,{},{'t': '2.0', 'g': '2.5', 'v': '3.0'},true
+Cold Brew,brewed,CB,{'ice': 'regular'},{'t': '3.0', 'g': '3.5', 'v': '4', 'tr': '4.5'},true
+Nitro Cold Brew,brewed,NCB,{},{'t': '4', 'g': '4.5'},true
+Vanilla Sweet Cream Cold Brew,brewed,VSCCB,{},{'t': '4', 'g': '4.5', 'v': '5', 'tr': '5.5'},true
+Vanilla Sweet Cream Nitro Cold Brew,brewed,VSCNCB,{},{'t': '4.5', 'g': '5'},true
+Nondairy Vanilla Sweet Cream Cold Brew,brewed,NdVSCCB,{},{'t': '4.0', 'g': '4.5', 'v': '5.0', 'tr': '5.5'},true
+Salted Caramel Cream Cold Brew,brewed,SCCCB,{},{'t': '4.5', 'g': '5.0', 'v': '5.5', 'tr': '6.0'},true
+Chocolate Cream Cold Brew,brewed,CCCB,{},{'t': '4.5', 'g': '5.0', 'v': '5.5'},true
+Cold Brew with Nondairy Vanilla Sweet Cream Cold Foam,brewed,CBNdVSCCF,{},{'t': '4.5', 'g': '5.0', 'v': '5.5'},true
+Nondairy Salted Caramel Cream Cold Brew,brewed,NdSCCCB,{},{'t': '4.5', 'g': '5.0', 'v': '5.5'},true
+Nondairy Chocolate Cream Cold Brew,brewed,NdCCCB,{},{'t': '4.5', 'g': '5.0', 'v': '5.5'},true
+Espresso,espresso,E,{},{'solo': '1.0', 'doppio': '2.0', 'triple': '3.0', 'quad': '4.0'},true
+Espresso Con Panna,espresso,EcP,{},{'solo': '1.5', 'doppio': '2.5', 'triple': '3.5', 'quad': '4.5'},true
+Espresso Macchiato,espresso,EMc,{},{'solo': '1.5', 'doppio': '2.5', 'triple': '3.5', 'quad': '4.5'},true
+Caramel Macchiato,espresso,CMc,{},{'solo': '1.5', 'doppio': '2.5', 'triple': '3.5', 'quad': '4.5'},true
+Caffe Americano,espresso,A,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Cortado,espresso,Ctd,{},{'s': '3.5'},true
+Brown Sugar Oatmilk Cortado,espresso,BSOCtd,{},{'s': '4'},true
+Cappuccino,espresso,Cp,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Flat White,espresso,FW,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Caffe Latte,espresso,CL,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Blonde Vanilla Latte,espresso,BVL,{},{'s': '3', 't': '3.5', 'g': '4.0', 'v': '4.5'},true
+Cinnamon Dolce Latte,espresso,CDL,{},{'s': '3', 't': '3.5', 'g': '4.0', 'v': '4.5'},true
+Caffe Mocha,espresso,CM,{},{'s': '3', 't': '3.5', 'g': '4.0', 'v': '4.5'},true
+White Chocolate Mocha,espresso,WCM,{},{'s': '3', 't': '3.5', 'g': '4.0', 'v': '4.5'},true
+Iced Shaken Espresso,espresso,ISE,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Iced Brown Sugar Oatmilk Shaken Espresso,espresso,IBSOSE,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Iced Hazelnut Oatmilk Shaken Espresso,espresso,IHzOSE,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Iced Horchata Oatmilk Shaken Espresso,espresso,IHOSE,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Caramel Ribbon Crunch Frappuccino,blended,CRCFp,{},{'t': '4.5', 'g': '5.0', 'v': '5.5'},true
+Mocha Cookie Crumble Frappuccino,blended,MCCFp,{},{'t': '4.5', 'g': '5.0', 'v': '5.5'},true
+Caramel Frappuccino,blended,CmFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Mocha Frappuccino,blended,MFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Coffee Frappuccino,blended,CFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Vanilla Bean Creme Frappuccino,blended,VBCFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Strawberry Creme Frappuccino,blended,SCFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Matcha Creme Frappuccino,blended,MCFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Brown Sugar Strato Frappuccino,blended,BSSFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Strawberry Matcha Strato Frappuccino,blended,SMSFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Salted Caramel Mocha Strato Frappuccino,blended,SCMSFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Syrup Creme Frappuccino,blended,SpCFp,{},{'t': '4.0', 'g': '4.5', 'v': '5.0'},true
+Chai Latte,tea,ChL,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Matcha Latte,tea,ML,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+London Fog Latte,tea,LFL,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Honey Citrus Mint Tea,tea,HCMT,{},{'s': '2.5', 't': '3.0', 'g': '3.5', 'v': '4.0'},true
+Royal English Breakfast Tea,tea,REBT,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Emperor's Clouds & Mist Tea,tea,ECMT,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Mint Majesty Tea,tea,MMT,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Earl Grey Tea,tea,EGT,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Chamomile Mint Blossom Tea,tea,CMBT,{},{'s': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Iced Black Tea,tea,IBT,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Iced Black Tea Lemonade,tea,IBTL,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Iced Green Tea,tea,IGT,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Iced Green Tea Lemonade,tea,IGTL,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Iced Passion Tango Tea,tea,IPTT,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Iced Passion Tango Tea Lemonade,tea,IPTTL,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Iced Peach Green Tea,tea,IPGT,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Iced Peach Green Tea Lemonade,tea,IPGTL,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Hot Chocolate,other,HC,{},{'k': '2.0', 's': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Lemonade,other,L,{},{'k': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Lemonade,other,L,{},{'k': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Blended Strawberry Lemonade,other,BSL,{},{'t': '3.0', 'g': '3.5', 'v': '4.0'},true
+Cold Milk,other,M,{},{'t': '3.0', 'g': '3.5', 'v': '4.0'},true
+Steamed Milk,other,SM,{},{'k': '2.0', 's': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Vanilla Creme,other,VC,{},{'k': '2.0', 's': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Steamed Apple Juice,other,SA,{},{'k': '2.0', 's': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Caramel Apple Spice,other,CAS,{},{'k': '2.0', 's': '2.0', 't': '2.5', 'g': '3.0', 'v': '3.5'},true
+Strawberry Acai Refresher,other,SAR,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Strawberry Acai Lemonade Refresher,other,SALR,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Pink Drink,other,PD,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Mango Dragonfruit Refresher,other,MDR,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Mango Dragonfruit Lemonade Refresher,other,MDLR,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Dragon Drink,other,DD,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Summer Berry Refresher,other,SBR,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Summer Berry Lemonade Refresher,other,SBLR,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true
+Summer Skies Drink,other,SSD,{},{'t': '2.5', 'g': '3.0', 'v': '3.5', 'tr': '4.0'},true

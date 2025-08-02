@@ -1,0 +1,46 @@
+item_name,category,warmed,abrev,identifier,quantity,price
+Blueberry Streusel Muffin,pastries,true,BSM,muffin,0,3.50
+Petite Vanilla Bean Scone,pastries,false,PVBS,scone,0,3.50
+Cheese Danish,pastries,true,CD,danish,0,3.50
+Banana Walnut Loaf,loaves,true,BWL,loaf,0,3.50
+Pumpkin & Pepita Loaf,loaves,true,PKL,loaf,0,3.50
+Iced Lemon Loaf,loaves,false,LL,loaf,0,3.50
+Cinnamon Coffee Cake,loaves,true,CCC,cake,0,3.50
+Birthday Cake Pop,loaves,false,BCP,pop,0,3.50
+Chocolate Cake Pop,loaves,false,ChCP,pop,0,3.50
+Cookie & Cream Cake Pop,loaves,false,CCCP,pop,0,3.50
+Plain Bagel,croissants,true,PB,bagel,0,3.50
+Everything Bagel,croissants,true,EB,bagel,0,3.50
+Butter Croissant,croissants,true,Ct,croissant,0,3.50
+Chocolate Croissant,croissants,true,ChCt,croissant,0,3.50
+Ham & Swiss Croissant,croissants,true,HSC,croissant,0,3.50
+Baked Apple Croissant,croissants,true,BACt,croissant,0,3.50
+Plain Cream Cheese,croissants,false,CC,sides,0,3.50
+Butter,croissants,false,Bt,sides,0,3.50
+Grilled Cheese on Sourdough,lunch,true,CGC,lunch,0,3.50
+Tomato & Mozzarella on Foccacia,lunch,true,TMoF,lunch,0,3.50
+Turkey Provolone & Pesto on Ciabatta,lunch,true,TPoC,lunch,0,3.50
+Ham & Swiss on Baguette,lunch,true,HSoB,lunch,0,3.50
+Spicey Falafel Pocket,lunch,true,SFP,pocket,0,3.50
+Jalapeno Chicken Pocket,lunch,true,JCP,pocket,0,3.50
+Avacado Spread,lunch,false,AS,snacks,0,3.50
+String Cheese,lunch,false,SC,snacks,0,3.50
+Mixed Berry Parfait,lunch,false,MBP,snacks,0,3.50
+Cheese & Fruit Box,lunch,false,CFB,box,0,3.50
+Egg & Cheddar Protein Box,lunch,false,ECPB,box,0,3.50
+Chocolate Chip Cookie,brownies,true,ChCC,cookie,0,3.50
+Double Chocolate Brownie,brownies,true,ChB,brownie,0,3.50
+Sausage Cheddar & Egg Sandwhich,breakfast,true,S,breakfast,0,3.50
+Turkey Bacon & Eggwhite Sandwhich,breakfast,true,TB,breakfast,0,3.50
+Dbl Smkd Bacon & Egg Sandwhich,breakfast,true,DSB,breakfast,0,3.50
+Bacon & Gouda Sandwhich,breakfast,true,B,breakfast,0,3.50
+Impossible Breakfast Sandwhich,breakfast,true,IM,breakfast,0,3.50
+Egg Pesto & Mozzarella Sandwhich,breakfast,true,EPMS,breakfast,0,3.50
+Spinach Feta Wrap,breakfast,true,SFW,Wrap,0,3.50
+Bacon Sausage & Egg Wrap,breakfast,true,wrap,0,3.50
+Bacon & Gruyere Egg Bites,breakfast,true,BGEB,bites,0,3.50
+Eggwhite & Red Pepper Egg Bites,breakfast,true,EWEB,bites,0,3.50
+Kale & Mushroom Egg Bites,breakfast,true,KMEB,bites,0,3.50
+Potato Cheddar & Chive Bake,breakfast,true,PCCB,bites,0,3.50
+Rolled and Steel Cut Oatmeal,breakfast,true,O,oatmeal,0,3.50
+Siracha,breakfast,false,Sc,sides,0,3.50

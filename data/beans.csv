@@ -1,0 +1,25 @@
+item_name,category,abrev,quantity,price
+Blonde Espresso,core,B_BE,0,15.0
+Espresso,core,B_E,0,15.0
+Green Apron Blend,core,B_GAB,0,15.0
+Guatamala Antigua,core,B_GA,0,15.0
+Italian,core,B_I,0,15.0
+Komodo Dragon,core,B_KD,0,15.0
+Pike Place Roast,core,B_PPR,0,15.0
+Siren's Blend,core,B_SB,0,15.0
+Sumatra,core,B_S,0,15.0
+Sunsera Blend,core,B_SsB,0,15.0
+Veranda,core,B_Vd,0,15.0
+Verona,core,B_V,0,15.0
+Yukon,core,B_Y,0,15.0
+Decaf Sumatra,core,B_DS,0,15.0
+Decaf Pike Place Roast,core,B_DPPR,0,15.0
+Honduras Cafico,reserve,BR_HC,0,20.0
+Tanzania Iyenga,reserve,BR_TI,0,20.0
+Mexico Tenejapa,reserve,BR_MR,0,20.0
+Sun Dried Ethiopia Oromia,reserve,BR_SDEO,0,20.0
+Indonesia West Java,reserve,BR_IWJ,0,20.0
+Rwanda Sholi Kundwa,reserve,BR_RSK,0,20.0
+Reserve Cold Brew Blend,reserve,BR_CB,0,20.0
+
+

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <script src="/static/scripts/main/main.js" defer></script>
+    <title>Document</title>
+</head>
+<body id="main_body">
+
+    <div id="container">
+
+        <div id="left_div">
+            <div id="tender_btn_div">
+                <button class="tender_btn" value="order">Order</button>
+                <button class="tender_btn" value="tender">Tender</button>
+                <button class="tender_btn" value="functions">Functions</button>
+            </div>
+            <div id="tender_container">
+                <p id="partner_name"><span id="circle">&#9675;</span> Partner Name <span id="storeId">2516</span></p>
+                <div id="tender_items">
+                    
+                </div>
+                <div id="tender_function">
+                    <div id="checkout">
+                        <div id="checkout_1">
+                            <button class="checkout_btn" id="quantity" value="quantity">Quantity</button>
+                            <button class="checkout_btn" id="customer_name" value="customer">Customer Name</button>
+                        </div>
+                        <div id="checkout_2">
+                            <div id="prices">
+                                <p class="label">Subtotal: </p><span class="total" id="subtotal_price">$0.00</span>
+                                <p class="label">Discounts: </p><span class="total" id="discounts_price">$0.00</span>
+                                <p class="label">Tax: </p><span class="total" id="tax_price">$0.00</span>
+                            </div>
+                            <div id="final_price_div">
+                                <p>TOTAL DUE: </p>
+                                <button id="final_price">$0.00</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="functions">
+                        <button class="func_btn" id="void_btn" value="void"><div id="btn_shadow">Void Item</div></button>
+                        <button class="func_btn" value="here">For Here Order</button>
+                        <button class="func_btn" value="discount">Discount</button>
+                        <button class="func_btn" value="logout">Logout</button>
+                        <button class="func_btn" id="cancel_btn" value="cancel">Cancel</button>
+                        <button class="func_btn" value="togo">To Go Order</button>
+                        <button class="func_btn"  id="save_order" value="save">Save Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="middle_div">
+            <dix id="category_div">
+                <button class="category_btn" value="misc">Misc</button>
+                <button class="category_btn" value="beans">Beans</button>
+                <button class="category_btn" value="rtde">RTD&E</button>
+                <button class="category_btn" value="food">Food</button>
+                <button class="category_btn" value="drinks">Drinks</button>
+            </dix>
+            <div id="item_search_div">
+                <div id="items_div">
+                   
+                </div>
+                <div id="item_type_div">
+                    <button class="item_type" value="pastries">Pastries</button>
+                    <button class="item_type" value="loaves">Loaves & Cakes</button>
+                    <button class="item_type" value="croissants">Bagels & Croissants</button>
+                    <button class="item_type" value="lunch">Lunch & Snacks</button>
+                    <button class="item_type" value="brownies">Brownies & Cookies</button>
+                    <button class="item_type" value="breakfast">Hot Breakfast</button>
+                </div>
+            </div>
+            <div id="bev_type">
+            
+            </div>
+            <div id="addit_btns_div">
+                <button class="addit_btns" value="avalability">Item Avalability</button>
+                <button class="addit_btns" value="sku">SKU Entry</button>
+                <button class="addit_btns" value="price">Price Check</button>
+                <button class="addit_btns" value="search">Item Search</button>
+                <button class="addit_btns" value="askme">Ask Me</button>
+                <button class="addit_btns" value="warmed">Warmed</button>
+            </div>
+        </div>
+        
+        
+        <div id="right_div">
+        
+            <div id="camera_div">
+                <div id="camera_feed" style="text-align: center; line-height: 50px;">
+                    Figure out camera 
+                </div>
+                <div id="cam_btns">
+                    <button class='cam_btn' id="cam_switch" value="power">| / O</button>
+                    <button class="cam_btn" id="task_mang" value="task">Starbucks Task Manager</button>
+                </div>
+            </div>
+        
+            <div id="image_div">
+                <div id="image_div_header">
+                    <img id='logo' src="/static/images/starbucks_logo.jpg" alt="Starbucks Siren">
+                    <span>Always good to see you</span>
+                </div>
+                <div id="image_div_main">
+                        <div id="image_main_1">
+                            <span id="image_main1_header">Start with delicious</span>
+                            <span id="image_main1_body">New horchata meets espresso in this tasty morning duo.</span>
+                        </div>
+                        <div id="image_main_2">
+                            <img id="horchata_img" src="/static/images/horchata_img.jpeg" alt="breakfast image">
+                        </div>
+                </div>
+            </div>
+        
+            <div id="customers_items" style="text-align: center; line-height: 50px;">Add Item List</div>
+        
+            </div>
+
+    </div>
+</body>
+</html>

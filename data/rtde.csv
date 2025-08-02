@@ -1,0 +1,34 @@
+item_name,category,identifier,abrev,quantity,price
+Koia Cocoa Bean Protein Shake,juice,koia,KCBPS,0,3.5
+Koia Vanilla Bean Protein Shake,juice,koia,KVBPS,0,3.5
+Starbucks Tripleshot Rich Vanilla,juice,starbucks,STSRB,0,3.5
+Evolution Defense Up,juice,evolution,EDU,0,3.5
+Evolution Orange Juice,juice,evolution,EOJ,0,3.5
+Evolution Super Fruit Greens,juice,evolution,ESFG,0,3.5
+Sol-ti Ginger SuperShot,juice,sol-ti,StGSS,0,3.5
+Sol-ti Tumeric SuperShot,juice,sol-ti,StTSS,0,3.5
+Tree Top Apple Juice,juice,boxed,TTAJ,0,3.5
+Horizon Plain Milk Box,juice,boxed,HPMB,0,3.5
+Horizon Chocolate Milk Box,juice,boxed,HCMB,0,3.5
+Ethos Water,soda,water,EW,0,3.5
+Olipop Classic Root Beer,soda,olipop,OCRB,0,3.5
+Olipop Classic Grape,soda,olipop,OCG,0,3.5
+Iced Energy Tropical Peach,soda,energy,IETP,0,3.5
+Iced Energy Blueberry Lemonade,soda,energy,IEBL,0,3.5
+Spindrift Raspberry Lime Sparkling Water,soda,spindrift,SRLSW,0,3.5
+Spindrift Lemon Sparkling Water,soda,spindrift,SLSW,0,3.5
+Marshmallow Dream Bar,impulse,impulse,MDB,0,3.5
+Madelines,impulse,impulse,Md,0,3.5
+Vanilla Biscotti,impulse,impulse,VBis,0,3.5
+Butter Popcorn,impulse,impulse,BPc,0,3.5
+Peanut Butter Perfect Bar,impulse,bars,PBPB,0,3.5
+Choc Chip Peanut Butter Perfect Bar,impulse,bars,CCPBPC,0,3.5
+KIND Caramel Bar,impulse,bars,KCB,0,3.5
+All in Vanilla Honey & Almond Bar,impulse,bars,AVHAB,0,3.5
+Skinny Dipped Chocolate Almonds,impulse,impulse,SDCA,0,3.5
+Skinny Dipped Lemon Bliss Almonds,impulse,impulse,SDLBA,0,3.5
+Strawberry & Banana Fruit Snack,impulse,impulse,SBFS,0,3.5
+Siete Sea Salted Potato Chips,impulse,impulse,SSSPC,0,3.5
+Siete Lime Tortilla Chips,impulse,impulse,SLTC,0,3.5
+Cinnamon DATEFIX,regional,DATEFIX,CDFx,0,3.5
+Ginger DATEFIX,regional,DATEFIX,GDFx,0,3.5
