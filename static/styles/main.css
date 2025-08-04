@@ -572,7 +572,7 @@ body {
 
 /* START BEANS */
 
-.bean_btn{
+.bean_btn, .food_btn, .drink_btn, .rtde_btn{
  height: 70px;
   width: 100px;
   padding: 2%;
@@ -583,7 +583,7 @@ body {
   box-shadow: 0px 0px 5px rgb(77, 76, 76);
 }
 
-.bean_btn:hover{
+.bean_btn:hover, .food_btn:hover, .drink_btn:hover, .rtde_btn:hover{
   background-color: rgb(77, 76, 76);
   color: rgb(207, 204, 204);
   transition: background-color 0.3s ease-in;
@@ -608,6 +608,14 @@ body {
   transition: background-color 0.3s ease-in;
 }
 /* END FOOD */
+
+/* START RTDE */
+/* END RTDE */
+
+/* START DRINKS */
+/* END DRINKS*/
+
+
 
 /* END MIDDLE DIV */
 

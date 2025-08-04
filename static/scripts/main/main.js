@@ -301,7 +301,7 @@ category_btns.forEach(btn => {
 
                                 juice_data.forEach(juice => {
                                     const juice_btn = document.createElement('button');
-                                    juice_btn.className = 'rdte_btn';
+                                    juice_btn.className = 'rtde_btn';
                                     juice_btn.textContent = juice.item_name;
                                     juice_btn.value = juice.price;
 
