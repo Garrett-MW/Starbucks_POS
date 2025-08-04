@@ -370,6 +370,7 @@ body {
   z-index: 1;
   border-radius: 7px;
   display: flex;
+  flex-direction: column;
 }
 
 #shots_content_div{
@@ -570,14 +571,113 @@ body {
   margin: 2%;
 }
 
+.custom_btns{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  height: 60px;
+  width: 90px;
+  padding: 1%;
+  font-size: 10px;
+  margin: 3%;
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+}
+
+#custom_div{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+.custom_options_btns{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  height: 60px;
+  width: 100%;
+  border-radius: 9px;
+  border: none;
+ }
+
+ .custom_options_btns:hover{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  transition: background-color 0.3s ease-in;
+ }
+
+.custom_btns:hover{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  transition: background-color 0.3s ease-in;
+}
+
+#custom_container{
+  display: flex;
+  flex-direction: column;
+  margin: 1%;
+  height: 600px;
+  justify-content: space-between;
+}
+
+#extra_custom{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.extra_custom_btn{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  border-radius: 9px;
+  border: none;
+  white-space-collapse:collapse;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  height: 60px;
+  width: 50%;
+  margin: 1%;
+}
+
+.extra_custom_btn:hover{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  transition: background-color 0.3s ease-in;
+}
+
+#milk_container{
+  display: flex;
+  border: 1px solid red;
+}
+
+#splash_milk_div, #replace_milk_div{
+  display: grid;
+  grid-template-columns: auto auto;
+  row-gap: 15px;
+  column-gap: 10px;
+  border: 1px solid red;
+  justify-content: space-evenly;
+}
+
+#replace_milk_div{
+  padding-top: 10%;
+}
+
+.milk_btn{
+  height: 50px;
+  width: 50%;
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+}
+
+
 /* START BEANS */
 
 .bean_btn, .food_btn, .drink_btn, .rtde_btn{
- height: 70px;
-  width: 100px;
-  padding: 2%;
-  font-size: 12px;
-  margin: 2%;
+  height: 60px;
+  width: 90px;
+  padding: 1%;
+  font-size: 10px;
+  margin: 3%;
   border-radius: 9px;
   border: none;
   box-shadow: 0px 0px 5px rgb(77, 76, 76);

@@ -996,7 +996,7 @@ category_btns.forEach(btn => {
 
 
                             case "milk":
-                                console.log('milk btn clicked');
+
                                 items_div.innerHTML = '';
                                 const milk_container = document.createElement('div');
                                 milk_container.id = 'milk_container';
@@ -1017,7 +1017,7 @@ category_btns.forEach(btn => {
                                 ]
 
                                 const replace_milk = document.createElement('div');
-                                replace_milk.id = 'replace_milk';
+                                replace_milk.id = 'replace_milk_div';
 
                                 milks.forEach(milk => {
                                     const milk_btn = document.createElement('button');
@@ -1073,7 +1073,7 @@ category_btns.forEach(btn => {
 
                                 milks.forEach(milk => {
                                     const splash_milk_btn = document.createElement('button');
-                                    splash_milk_btn.className = 'splash_milk_btn';
+                                    splash_milk_btn.className = 'milk_btn';
                                     splash_milk_btn.textContent = `Splash of ${milk.label}`;
                                     splash_milk_btn.value = milk.value;
 
@@ -1112,7 +1112,7 @@ category_btns.forEach(btn => {
                                 mods.forEach(mod => {
                                     const custom_mod_btn = document.createElement('button');
                                     custom_mod_btn.textContent = mod.label;
-                                    custom_mod_btn.className = 'custom_mod_btn';
+                                    custom_mod_btn.className = 'custom_btns';
 
                                     custom_mod_btn.addEventListener('click', () => {
                                         console.log(`${mod.label} btn clicked`);
@@ -1160,20 +1160,43 @@ category_btns.forEach(btn => {
                                     btn_div.className = 'grid_cell';
                                     if (custom.label != null) {
                                         const custom_btn = document.createElement('button');
-                                        custom_btn.className = 'custom_btn';
+                                        custom_btn.className = 'custom_options_btns';
                                         custom_btn.innerHTML = custom.label;
                                         btn_div.appendChild(custom_btn);
 
                                         switch (custom.label) {
                                             case 'Cold Foams':
                                                 custom_btn.addEventListener('click', () => {
-                                                    console.log('Cold Foams btn clicked');
-                                                    items_div.innerHTML = 'COLD FOAMS'
+
+                                                    items_div.innerHTML = ''
+                                                    const cold_foams = [
+                                                        { label: 'Vanilla Sweet Cream Cold Foam' }
+                                                    ]
+
+                                                    const cf_div = document.createElement('div');
+                                                    cf_div.className = 'drink_div';
+
+                                                    cold_foams.forEach(cf => {
+                                                        const cf_btn = document.createElement('button');
+                                                        cf_btn.className = 'drink_btn';
+                                                        cf_btn.textContent = cf.label;
+
+                                                        cf_btn.addEventListener('click', () => {
+                                                            console.log(`${cf_btn.textContent} btn clicked`);
+                                                        });
+
+                                                        cf_div.appendChild(cf_btn);
+                                                    });
+
+                                                    items_div.appendChild(custom_mods);
+                                                    items_div.appendChild(cf_div);
                                                 });
+
+                                                break;
 
                                             default:
                                                 custom_btn.addEventListener('click', () => {
-                                                    console.log(`${custom.label} Button Clicked`); //dont think I need swtich for this
+                                                    console.log(`${custom.label} Button Clicked`);
                                                 });
                                                 break;
                                         }
@@ -1199,17 +1222,57 @@ category_btns.forEach(btn => {
                                     extra_custom.appendChild(extra_custom_btn);
 
                                     switch (extra.label) {
-                                        case 'More Custom Toppings & Inclusions':
+                                        case 'More Custom Directions':
                                             extra_custom_btn.addEventListener('click', () => {
                                                 items_div.innerHTML = 'More Custom Toppings and Inclusions';
                                                 console.log(`${extra.label} btn clicked`);
                                             });
                                             break;
 
-                                        case 'More Custom Directions':
+                                        case 'More Custom Toppings & Inclusions':
                                             extra_custom_btn.addEventListener('click', () => {
-                                                items_div.innerHTML = 'More Custom Directions';
-                                                console.log(`${extra.label} btn clicked`);
+
+                                                items_div.innerHTML = '';
+                                                const extra_toppings = [
+                                                    { label: 'Cinnamon Powder' },
+                                                    { label: 'Chocolate Malt Powder' },
+                                                    { label: 'Apple Juice' },
+                                                    { label: 'Peach Juice Blend' },
+                                                    { label: 'Black Tea Base' },
+                                                    { label: 'Green Tea Base' },
+                                                    { label: 'Passion Tango Tea Base' },
+                                                    { label: 'Strawberry Acai Refresher Base' },
+                                                    { label: 'Mango Dragonfruit Refresher Base' },
+                                                    { label: 'Summer Berry Refresher Base' },
+                                                    { label: 'Blackberry Sage Refresher Base' },
+                                                    { label: 'No Water + Extra Strawberry Base' },
+                                                    { label: 'No Water + Extra Mango Base' },
+                                                    { label: 'No Water + Extra Summer Berry Base' },
+                                                    { label: 'No Water + Extra Blackberry Base' },
+                                                    { label: 'Cinnamon Dolce Topping' },
+                                                    { label: 'Cookie Crumble Topping' },
+                                                    { label: 'Caramel Sugar Topping' },
+                                                    { label: 'Cherry Crunch Topping' },
+                                                    { label: 'No Topping' }
+                                                ]
+
+                                                const extra_top_div = document.createElement('div');
+                                                extra_top_div.className = drink_div;
+
+                                                extra_toppings.forEach(topping => {
+                                                    const topping_btn = document.createElement('button');
+                                                    topping_btn.className = 'drink_btn';
+                                                    topping_btn.textContent = topping.label;
+
+                                                    topping_btn.addEventListener('click', () => {
+                                                        console.log(`${topping_btn.textContent} btn clicked`);
+                                                    });
+
+                                                    extra_top_div.appendChild(topping_btn);
+                                                });
+
+                                                items_div.appendChild(extra_top_div);
+
                                             });
                                             break;
 
