@@ -446,8 +446,8 @@ body {
 }
 
 .card_btn{
-  background-color: rgb(77, 76, 76);
-  color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  background-color: rgb(207, 204, 204);
   width: 60%;
   height: 90px;
   text-align: center;
@@ -457,8 +457,8 @@ body {
 }
 
 .loyalty_btn{
-  background-color: rgb(77, 76, 76);
-  color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  background-color: rgb(207, 204, 204);
   border: none;
   border-radius: 9px;
   height: 70px;
@@ -467,8 +467,8 @@ body {
 }
 
 .card_btn:hover, .loyalty_btn:hover{
-  background-color: rgb(207, 204, 204);
-  color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  background-color: rgb(77, 76, 76);
   transition: background-color 0.3s fade-in;
 }
 
@@ -487,6 +487,8 @@ body {
 }
 
 .bulk_btn{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
   width: 20%;
   height: 50px;
   border: none;
@@ -497,8 +499,8 @@ body {
 }
 
 .bulk_btn:hover {
-  background-color: rgb(207, 204, 204);
-  color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  background-color: rgb(77, 76, 76);
   transition: background-color 0.3s fade-in;
 }
 
