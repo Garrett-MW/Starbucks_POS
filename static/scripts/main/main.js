@@ -272,6 +272,7 @@ category_btns.forEach(btn => {
 
             case "rtde":
 
+                const rtde_data = await load_rtde();
                 bev_type.innerHTML = " ";
                 item_type_div.innerHTML = " ";
 
@@ -291,26 +292,107 @@ category_btns.forEach(btn => {
                         switch (name) {
 
                             case "juice":
-                                items_div.innerHTML = '<h2>juice</h2>';
-                                console.log('juice btn clicked');
+
+                                items_div.innerHTML = '';
+                                const juice_data = rtde_data.juice;
+
+                                const juice_div = document.createElement('div');
+                                juice_data.className = 'rtde_div';
+
+                                juice_data.forEach(juice => {
+                                    const juice_btn = document.createElement('button');
+                                    juice_btn.className = 'rdte_btn';
+                                    juice_btn.textContent = juice.item_name;
+                                    juice_btn.value = juice.price;
+
+                                    juice_btn.addEventListener('click', () => {
+                                        console.log(`${juice_btn.textContent} btn clicked`);
+                                    });
+
+                                    juice_div.appendChild(juice_btn)
+                                });
+
+                                items_div.appendChild(juice_div);
+
+
                                 break;
 
 
                             case "soda":
-                                items_div.innerHTML = '<h2>soda</h2>';
-                                console.log('soda btn clicked');
+
+                                items_div.innerHTML = '';
+                                const soda_data = rtde_data.soda;
+
+                                const soda_div = document.createElement('div');
+                                soda_div.className = 'rtde_div';
+
+                                soda_data.forEach(soda => {
+                                    const soda_btn = document.createElement('button');
+                                    soda_btn.className = 'rtde_btn';
+                                    soda_btn.textContent = soda.item_name;
+                                    soda_btn.value = soda.price;
+
+                                    soda_btn.addEventListener('click', () => {
+                                        console.log(`${soda_btn.textContent} btn clicked`);
+                                    });
+
+                                    soda_div.appendChild(soda_btn)
+                                });
+
+                                items_div.appendChild(soda_div);
+
                                 break;
 
 
                             case "impulse":
-                                items_div.innerHTML = '<h2>impulse</h2>';
-                                console.log('impulse btn clicked');
+
+                                items_div.innerHTML = '';
+                                const impulse_data = rtde_data.impulse;
+
+                                const impulse_div = document.createElement('div');
+                                impulse_div.className = 'rtde_div';
+
+                                impulse_data.forEach(impulse => {
+                                    const impulse_btn = document.createElement('button');
+                                    impulse_btn.className = 'rtde_btn';
+                                    impulse_btn.textContent = impulse.item_name;
+                                    impulse_btn.value = impulse.price;
+
+                                    impulse_btn.addEventListener('click', () => {
+                                        console.log(`${impulse_btn.textContent} btn clicked`);
+                                    });
+
+                                    impulse_div.appendChild(impulse_btn);
+                                });
+
+                                items_div.appendChild(impulse_div);
+
                                 break;
 
 
                             case "regional":
-                                items_div.innerHTML = '<h2>regional</h2>';
-                                console.log('regional btn clicked');
+
+                                items_div.innerHTML = '';
+                                const regional_data = rtde_data.regional;
+
+                                const regional_div = document.createElement('div');
+                                regional_div.className = 'rtde_div';
+
+                                regional_data.forEach(item => {
+                                    const regional_btn = document.createElement('button');
+                                    regional_btn.className = 'rtde_btn';
+                                    regional_btn.textContent = item.item_name;
+                                    regional_btn.value = item.price;
+
+                                    regional_btn.addEventListener('click', () => {
+                                        console.log(`${regional_btn.textContent} btn clicked`);
+                                    });
+
+                                    regional_div.appendChild(regional_btn);
+                                });
+
+                                items_div.appendChild(regional_div);
+
                                 break;
 
 
@@ -465,28 +547,7 @@ category_btns.forEach(btn => {
                                     bulk_row2.appendChild(bulk_row2_btn);
 
                                     bulk_row2_btn.addEventListener('click', () => {
-                                        const name = bulk_row2_btn.value;
-                                        switch (name) {
-                                            case '8cup':
-                                                console.log('8cup btn clicked');
-                                                break;
-
-                                            case 'reserve_8cup':
-                                                console.log('reserve 8 cup btn clicked');
-                                                break;
-
-                                            case '12cup':
-                                                console.log('12cup btn clicked');
-                                                break;
-
-                                            case 'airpot':
-                                                console.log('airport btn clicked');
-                                                break;
-
-                                            default:
-                                                break;
-
-                                        }
+                                        console.log(`${bulk_row2_btn.textContent} btn clicked`);
                                     });
                                 });
 
@@ -504,25 +565,7 @@ category_btns.forEach(btn => {
                                     bulk_row3_btn.textContent = btn.label;
                                     bulk_row3.appendChild(bulk_row3_btn);
                                     bulk_row3_btn.addEventListener('click', () => {
-                                        const name = bulk_row3_btn.value;
-                                        switch (name) {
-                                            case '1cambro':
-                                                console.log('1 cambro btn clicked');
-                                                break;
-
-                                            case '2.5cambro':
-                                                console.log('2.5 cambro btn clicked');
-                                                break;
-
-                                            case '5cambro':
-                                                console.log('5 cambro btn clicked');
-                                                break;
-
-
-                                            default:
-                                                break;
-
-                                        }
+                                        console.log(`${bulk_row3_btn.textContent} btn clicked`);
                                     });
                                 });
                                 bulk_div.appendChild(bulk_row1);
@@ -555,25 +598,7 @@ category_btns.forEach(btn => {
                                     donations_row1.appendChild(donations_row1_btn)
 
                                     donations_row1_btn.addEventListener('click', () => {
-                                        const name = donations_row1_btn.value;
-                                        switch (name) {
-                                            case 'cupFund':
-                                                console.log('cup fund btn clicked');
-                                                break;
-
-                                            case 'foodPickup':
-                                                console.log('food pickup btn clicked');
-                                                break;
-
-                                            case 'redCross':
-                                                console.log('red cross btn clicked');
-                                                break;
-
-
-                                            default:
-                                                break;
-
-                                        }
+                                        console.log(`${donations_row1_btn.textContent} btn clicked`);
                                     });
                                 });
 
@@ -590,21 +615,7 @@ category_btns.forEach(btn => {
                                     donations_row2_btn.textContent = btn.label;
                                     donations_row2.appendChild(donations_row2_btn);
                                     donations_row2_btn.addEventListener('click', () => {
-                                        const name = donations_row2_btn.value;
-                                        switch (name) {
-                                            case 'smlBag':
-                                                console.log('small bag btn clicked');
-                                                break;
-
-                                            case 'lgBag':
-                                                console.log('large bag btn clicked');
-                                                break;
-
-
-                                            default:
-                                                break;
-
-                                        }
+                                        console.log(`${donations_row2_btn.textContent} btn clicked`);
                                     });
                                 });
 
@@ -1241,7 +1252,27 @@ category_btns.forEach(btn => {
                     bev_type_btn.textContent = btn.label;
                     bev_type_btn.value = btn.value;
                     bev_type_btn.addEventListener('click', () => {
-                        console.log(`${bev_type_btn.value} btn clicked`);
+                        const name = bev_type_btn.value;
+
+                        switch (name) {
+                            case 'brewed':
+                                break
+
+                            case 'espresso':
+                                break
+
+                            case 'blended':
+                                break
+
+                            case 'tea':
+                                break
+
+                            case 'other':
+                                break
+
+                            default:
+                                break
+                        }
                     });
 
                     bev_type.appendChild(bev_type_btn)
