@@ -25,7 +25,7 @@ async function load_food() {
         return data;
 
     } catch (error) {
-        alert('Failed to Load Food Data');
+        console.error(error);
         return;
     }
 
@@ -38,7 +38,7 @@ async function load_rtde() {
         return data;
 
     } catch (error) {
-        alert('Failed to Load RTDE Data');
+        console.error(error);
         return;
     }
 };
@@ -50,7 +50,7 @@ async function load_beans() {
         return data;
 
     } catch (error) {
-        alert('Failed to Load Bean Data');
+        console.error(error);
         return;
     }
 
@@ -63,7 +63,7 @@ async function load_drinks() {
         return data;
 
     } catch (error) {
-        alert('Failed to Load Drink Data')
+        console.error(error);
         return;
     }
 };
@@ -317,6 +317,7 @@ category_btns.forEach(btn => {
                                 bulk_div.id = 'bulk_div';
 
                                 const bulk_row1 = document.createElement('div');
+                                bulk_row1.className = 'bulk_row';
                                 const bulk_row1_btn = document.createElement('button');
                                 bulk_row1_btn.className = 'bulk_btn';
                                 bulk_row1_btn.textContent = 'Coffee Traveler';
@@ -346,7 +347,7 @@ category_btns.forEach(btn => {
                                     bulk_row2.appendChild(bulk_row2_btn);
 
                                     bulk_row2_btn.addEventListener('click', () => {
-                                        const name = card_btn.value;
+                                        const name = bulk_row2_btn.value;
                                         switch (name) {
                                             case '8cup':
                                                 items_div.innerHTML = '<h2>8 cup</h2>';
@@ -363,8 +364,8 @@ category_btns.forEach(btn => {
                                                 console.log('12cup btn clicked');
                                                 break;
 
-                                            case 'airport':
-                                                items_div.innerHTML = '<h2>Airport</h2>';
+                                            case 'airpot':
+                                                items_div.innerHTML = '<h2>Airpot</h2>';
                                                 console.log('airport btn clicked');
                                                 break;
 
@@ -389,7 +390,7 @@ category_btns.forEach(btn => {
                                     bulk_row3_btn.textContent = btn.label;
                                     bulk_row3.appendChild(bulk_row3_btn);
                                     bulk_row3_btn.addEventListener('click', () => {
-                                        const name = card_btn.value;
+                                        const name = bulk_row3_btn.value;
                                         switch (name) {
                                             case '1cambro':
                                                 items_div.innerHTML = '<h2>1 Cambro</h2>';
@@ -443,7 +444,7 @@ category_btns.forEach(btn => {
                                     donations_row1.appendChild(donations_row1_btn)
 
                                     donations_row1_btn.addEventListener('click', () => {
-                                        const name = card_btn.value;
+                                        const name = donations_row1_btn.value;
                                         switch (name) {
                                             case 'cupFund':
                                                 items_div.innerHTML = '<h2>Cup Fund</h2>';
@@ -481,21 +482,16 @@ category_btns.forEach(btn => {
                                     donations_row2_btn.textContent = btn.label;
                                     donations_row2.appendChild(donations_row2_btn);
                                     donations_row2_btn.addEventListener('click', () => {
-                                        const name = card_btn.value;
+                                        const name = donations_row2_btn.value;
                                         switch (name) {
-                                            case 'cupFund':
-                                                items_div.innerHTML = '<h2>Cup Fund</h2>';
-                                                console.log('cup fund btn clicked');
+                                            case 'smlBag':
+                                                items_div.innerHTML = '<h2>Small Bag</h2>';
+                                                console.log('small bag btn clicked');
                                                 break;
 
-                                            case 'foodPickup':
-                                                items_div.innerHTML = '<h2>Food Pickup</h2>';
-                                                console.log('food pickup btn clicked');
-                                                break;
-
-                                            case 'redCross':
-                                                items_div.innerHTML = '<h2>Red Cross</h2>';
-                                                console.log('red cross btn clicked');
+                                            case 'lgBag':
+                                                items_div.innerHTML = '<h2>Large Bag</h2>';
+                                                console.log('large bag btn clicked');
                                                 break;
 
 
@@ -514,7 +510,7 @@ category_btns.forEach(btn => {
 
 
                             case "test":
-                                items_div.innerHTML = '<div>No Content</div>'
+                                items_div.innerHTML = ''
                                 console.log('Test Btn Clicked (no content to display)')
                                 break;
 
