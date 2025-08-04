@@ -11,12 +11,6 @@ let rtde_data = null;
 let drink_data = null;
 let beans_data = null;
 
-window.addEventListener('load', async function print_data() {
-    food_data = await load_food();
-    rtde_data = await load_rtde();
-    drink_data = await load_drinks();
-    beans_data = await load_beans();
-});
 
 async function load_food() {
     try {
@@ -530,6 +524,8 @@ category_btns.forEach(btn => {
 
             case "beans":
 
+                const beans_data = await load_beans();
+
                 bev_type.innerHTML = "";
                 item_type_div.innerHTML = "";
 
@@ -549,14 +545,51 @@ category_btns.forEach(btn => {
                         switch (name) {
 
                             case "core":
-                                items_div.innerHTML = '<h2>core</h2>';
-                                console.log('core btn clicked');
+                                items_div.innerHTML = '';
+                                const core_bean_data = beans_data.core;
+
+                                const core_div = document.createElement('div');
+                                core_div.className = 'bean_div';
+
+                                core_bean_data.forEach(bean => {
+                                    const core_btn = document.createElement('button');
+                                    core_btn.className = 'bean_btn';
+                                    core_btn.textContent = bean.item_name;
+                                    core_btn.value = bean.price;
+                                    core_btn.addEventListener('click', () => {
+                                        console.log(`${core_btn.textContent} btn clicked`)
+                                    });
+                                    core_div.appendChild(core_btn);
+                                });
+
+                                items_div.appendChild(core_div);
+
+
                                 break;
 
 
                             case "reserve":
-                                items_div.innerHTML = '<h2>reserve</h2>';
-                                console.log('reserve btn clicked');
+
+                                items_div.innerHTML = '';
+                                const reserve_bean_data = beans_data.reserve;
+
+                                const reserve_div = document.createElement('div');
+                                reserve_div.className = 'bean_div';
+
+                                reserve_bean_data.forEach(bean => {
+                                    const reserve_btn = document.createElement('button');
+                                    reserve_btn.className = 'bean_btn';
+                                    reserve_btn.textContent = bean.item_name;
+                                    reserve_btn.value = bean.price;
+                                    reserve_btn.addEventListener('click', () => {
+                                        console.log(`${reserve_btn.textContent} btn clicked`);
+                                    });
+                                    reserve_div.appendChild(reserve_btn);
+                                });
+
+                                items_div.appendChild(reserve_div);
+
+
                                 break;
 
 

@@ -568,6 +568,26 @@ body {
   margin: 2%;
 }
 
+/* START BEANS */
+
+.bean_btn{
+ height: 70px;
+  width: 100px;
+  padding: 2%;
+  font-size: 12px;
+  margin: 2%;
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+}
+
+.bean_btn:hover{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  transition: background-color 0.3s ease-in;
+}
+/* END BEANS */
+
 
 /* END MIDDLE DIV */
 
