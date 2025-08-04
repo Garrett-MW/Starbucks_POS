@@ -730,6 +730,7 @@ category_btns.forEach(btn => {
 
             case "drinks":
 
+                const drink_data = await load_drinks();
                 item_type_div.innerHTML = "";
                 bev_type.innerHTML = "";
 
@@ -1256,18 +1257,128 @@ category_btns.forEach(btn => {
 
                         switch (name) {
                             case 'brewed':
-                                break
+
+                                items_div.innerHTML = "";
+                                const brewed_data = drink_data.brewed;
+
+                                const brewed_div = document.createElement('div');
+                                brewed_div.className = 'drink_div';
+
+                                brewed_data.forEach(drink => {
+                                    const brewed_btn = document.createElement('button');
+                                    brewed_btn.className = 'drink_btn';
+                                    brewed_btn.textContent = drink.item_name;
+                                    brewed_btn.value = drink.price;
+
+                                    brewed_btn.addEventListener('click', () => {
+                                        console.log(`${brewed_btn.textContent} btn clicked`);
+                                    });
+
+                                    brewed_div.appendChild(brewed_btn);
+                                });
+
+                                items_div.appendChild(brewed_div);
+
+                                break;
 
                             case 'espresso':
-                                break
+
+                                items_div.innerHTML = '';
+                                const espresso_data = drink_data.espresso;
+
+                                const espresso_div = document.createElement('div');
+                                espresso_div.className = 'espresso_div';
+
+                                espresso_data.forEach(drink => {
+                                    const espresso_btn = document.createElement('button');
+                                    espresso_btn.className = 'drink_btn';
+                                    espresso_btn.textContent = drink.item_name;
+                                    espresso_btn.value = drink.price;
+
+                                    espresso_btn.addEventListener('click', () => {
+                                        console.log(`${espresso_btn.textContent} btn clicked`);
+                                    });
+
+                                    espresso_div.appendChild(espresso_btn);
+                                });
+
+                                items_div.appendChild(espresso_div);
+
+                                break;
 
                             case 'blended':
-                                break
+
+                                items_div.innerHTML = '';
+                                const blended_data = drink_data.blended;
+
+                                const blended_div = document.createElement('div');
+                                blended_div.className = 'drink_div';
+
+                                blended_data.forEach(drink => {
+                                    const blended_btn = document.createElement('button');
+                                    blended_btn.className = 'drink_btn';
+                                    blended_btn.textContent = drink.item_name;
+                                    blended_btn.value = drink.price;
+
+                                    blended_btn.addEventListener('click', () => {
+                                        console.log(`${blended_btn.textContent} btn clicked`);
+                                    });
+
+                                    blended_div.appendChild(blended_btn);
+                                });
+
+                                items_div.appendChild(blended_div);
+
+                                break;
 
                             case 'tea':
-                                break
+
+                                items_div.innerHTML = '';
+                                const tea_data = drink_data.tea;
+
+                                const tea_div = document.createElement('div');
+                                tea_div.className = 'drink_div';
+
+                                tea_data.forEach(drink => {
+                                    const tea_btn = document.createElement('button');
+                                    tea_btn.className = 'drink_btn';
+                                    tea_btn.textContent = drink.item_name;
+                                    tea_btn.value = drink.price;
+
+                                    tea_btn.addEventListener('click', () => {
+                                        console.log(`${tea_btn.textContent} btn clicked`);
+                                    });
+
+                                    tea_div.appendChild(tea_btn);
+                                });
+
+                                items_div.appendChild(tea_div);
+
+                                break;
 
                             case 'other':
+
+                                items_div.innerHTML = '';
+                                const other_data = drink_data.other;
+
+                                const other_div = document.createElement('div');
+                                other_div.className = 'drink_div';
+
+                                other_data.forEach(drink => {
+                                    const other_btn = document.createElement('button');
+                                    other_btn.className = 'drink_btn';
+                                    other_btn.textContent = drink.item_name;
+                                    other_btn.value = drink.price;
+
+                                    other_btn.addEventListener('click', () => {
+                                        console.log(`${other_btn.textContent} btn clicked`);
+                                    });
+
+                                    other_div.appendChild(other_btn);
+                                });
+
+                                items_div.appendChild(other_div);
+
                                 break
 
                             default:
@@ -1275,7 +1386,7 @@ category_btns.forEach(btn => {
                         }
                     });
 
-                    bev_type.appendChild(bev_type_btn)
+                    bev_type.appendChild(bev_type_btn);
 
                 });
                 setFirstItemTypeToClick("shots");
