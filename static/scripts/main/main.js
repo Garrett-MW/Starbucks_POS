@@ -71,6 +71,8 @@ category_btns.forEach(btn => {
 
             case "food":
 
+                const food_data = await load_food();
+
                 bev_type.innerHTML = " ";
                 item_type_div.innerHTML = " ";
 
@@ -94,38 +96,165 @@ category_btns.forEach(btn => {
                         switch (name) {
 
                             case "pastries":
-                                items_div.innerHTML = '<h2>Pastries</h2>';
-                                console.log('pastries btn clicked');
+
+                                items_div.innerHTML = '';
+                                const pastries_data = food_data.pastries;
+
+                                const pastries_div = document.createElement('div');
+                                pastries_div.className = 'food_div';
+
+                                pastries_data.forEach(pastry => {
+
+                                    const pastry_btn = document.createElement('button');
+                                    pastry_btn.className = 'food_btn';
+                                    pastry_btn.textContent = pastry.item_name;
+                                    pastry_btn.value = pastry.price;
+
+                                    pastry_btn.addEventListener('click', () => {
+                                        console.log(`${pastry_btn.textContent} btn clicked`);
+                                    });
+
+                                    pastries_div.appendChild(pastry_btn);
+                                });
+
+                                items_div.appendChild(pastries_div);
+
+
                                 break;
 
 
                             case "loaves":
-                                items_div.innerHTML = '<h2>Loaves</h2>';
-                                console.log('loaves btn clicked');
+
+                                items_div.innerHTML = '';
+                                const loaves_data = food_data.loaves;
+
+                                const loaves_div = document.createElement('div');
+                                loaves_div.className = 'food_div';
+
+                                loaves_data.forEach(loaf => {
+
+                                    const loaf_btn = document.createElement('button');
+                                    loaf_btn.className = 'food_btn';
+                                    loaf_btn.textContent = loaf.item_name;
+                                    loaf_btn.value = loaf.price;
+
+                                    loaf_btn.addEventListener('click', () => {
+                                        console.log(`${loaf_btn.textContent} btn clicked`)
+                                    });
+
+                                    loaves_div.appendChild(loaf_btn);
+                                });
+
+                                items_div.appendChild(loaves_div);
+
                                 break;
 
 
                             case "croissants":
-                                items_div.innerHTML = '<h2>Croissants</h2>';
-                                console.log('croissants btn clicked');
+
+                                items_div.innerHTML = '';
+                                const croissants_data = food_data.croissants;
+
+                                const croissants_div = document.createElement('div');
+                                croissants_div.className = 'food_div';
+
+                                croissants_data.forEach(croissant => {
+
+                                    const croissant_btn = document.createElement('button');
+                                    croissant_btn.className = 'food_btn';
+                                    croissant_btn.textContent = croissant.item_name;
+                                    croissant_btn.value = croissant.price;
+
+                                    croissant_btn.addEventListener('click', () => {
+                                        console.log(`${croissant_btn.textContent} btn clicked`)
+                                    });
+
+                                    croissants_div.appendChild(croissant_btn);
+                                });
+
+                                items_div.appendChild(croissants_div);
+
                                 break;
 
 
                             case "lunch":
-                                items_div.innerHTML = '<h2>Lunch</h2>';
-                                console.log('lunch btn clicked');
+
+                                items_div.innerHTML = '';
+                                const lunch_data = food_data.lunch;
+
+                                const lunch_div = document.createElement('div');
+                                lunch_div.className = 'food_div';
+
+                                lunch_data.forEach(item => {
+
+                                    const lunch_btn = document.createElement('button');
+                                    lunch_btn.className = 'food_btn';
+                                    lunch_btn.textContent = item.item_name;
+                                    lunch_btn.value = item.price;
+
+                                    lunch_btn.addEventListener('click', () => {
+                                        console.log(`${lunch_btn.textContent} btn clicked`)
+                                    });
+
+                                    lunch_div.appendChild(lunch_btn);
+                                });
+
+                                items_div.appendChild(lunch_div);
+
                                 break;
 
 
                             case "brownies":
-                                items_div.innerHTML = '<h2>Brownies</h2>';
-                                console.log('brownies btn clicked');
+
+                                items_div.innerHTML = '';
+                                const brownies_data = food_data.brownies;
+
+                                const brownies_div = document.createElement('div');
+                                brownies_div.className = 'food_div';
+
+                                brownies_data.forEach(brownie => {
+
+                                    const brownie_btn = document.createElement('button');
+                                    brownie_btn.className = 'food_btn';
+                                    brownie_btn.textContent = brownie.item_name;
+                                    brownie_btn.value = brownie.price;
+
+                                    brownie_btn.addEventListener('click', () => {
+                                        console.log(`${brownie_btn.textContent} btn clicked`)
+                                    });
+
+                                    brownies_div.appendChild(brownie_btn);
+                                });
+
+                                items_div.appendChild(brownies_div);
+
                                 break;
 
 
                             case "breakfast":
-                                items_div.innerHTML = '<h2>Breakfast</h2>';
-                                console.log('breakfast btn clicked');
+
+                                items_div.innerHTML = '';
+                                const breakfast_data = food_data.breakfast;
+
+                                const breakfast_div = document.createElement('div');
+                                breakfast_div.className = 'food_div';
+
+                                breakfast_data.forEach(item => {
+
+                                    const breakfast_btn = document.createElement('button');
+                                    breakfast_btn.className = 'food_btn'
+                                    breakfast_btn.textContent = item.item_name;
+                                    breakfast_btn.value = item.price;
+
+                                    breakfast_btn.addEventListener('click', () => {
+                                        console.log(`${breakfast_btn.textContent} btn clicked`)
+                                    });
+
+                                    breakfast_div.appendChild(breakfast_btn);
+                                });
+
+                                items_div.appendChild(breakfast_div);
+
                                 break;
 
                             default:
@@ -243,17 +372,14 @@ category_btns.forEach(btn => {
                                         const name = card_btn.value;
                                         switch (name) {
                                             case 'activate':
-                                                items_div.innerHTML = '<h2>Activate Gift Card</h2>';
                                                 console.log('activate giftcard btn clicked');
                                                 break;
 
                                             case 'reload':
-                                                items_div.innerHTML = '<h2>Reload Gift Card</h2>';
                                                 console.log('reload giftcard btn clicked');
                                                 break;
 
                                             case 'recovery':
-                                                items_div.innerHTML = '<h2>Activate Recovery Card</h2>';
                                                 console.log('recovery card btn clicked');
                                                 break;
 
@@ -281,12 +407,10 @@ category_btns.forEach(btn => {
                                         const name = loyalty_btn.value;
                                         switch (name) {
                                             case 'balance':
-                                                items_div.innerHTML = '<h2>Gift Balance Card</h2>';
                                                 console.log('giftcard balance btn clicked');
                                                 break;
 
                                             case 'member':
-                                                items_div.innerHTML = '<h2>Member Account Card</h2>';
                                                 console.log('member account btn clicked');
                                                 break;
 
@@ -344,22 +468,18 @@ category_btns.forEach(btn => {
                                         const name = bulk_row2_btn.value;
                                         switch (name) {
                                             case '8cup':
-                                                items_div.innerHTML = '<h2>8 cup</h2>';
                                                 console.log('8cup btn clicked');
                                                 break;
 
                                             case 'reserve_8cup':
-                                                items_div.innerHTML = '<h2>Reserve 8 cup</h2>';
                                                 console.log('reserve 8 cup btn clicked');
                                                 break;
 
                                             case '12cup':
-                                                items_div.innerHTML = '<h2>12 cup</h2>';
                                                 console.log('12cup btn clicked');
                                                 break;
 
                                             case 'airpot':
-                                                items_div.innerHTML = '<h2>Airpot</h2>';
                                                 console.log('airport btn clicked');
                                                 break;
 
@@ -387,17 +507,14 @@ category_btns.forEach(btn => {
                                         const name = bulk_row3_btn.value;
                                         switch (name) {
                                             case '1cambro':
-                                                items_div.innerHTML = '<h2>1 Cambro</h2>';
                                                 console.log('1 cambro btn clicked');
                                                 break;
 
                                             case '2.5cambro':
-                                                items_div.innerHTML = '<h2>2.5 Cambro</h2>';
                                                 console.log('2.5 cambro btn clicked');
                                                 break;
 
                                             case '5cambro':
-                                                items_div.innerHTML = '<h2>5 Cambro</h2>';
                                                 console.log('5 cambro btn clicked');
                                                 break;
 
@@ -441,17 +558,14 @@ category_btns.forEach(btn => {
                                         const name = donations_row1_btn.value;
                                         switch (name) {
                                             case 'cupFund':
-                                                items_div.innerHTML = '<h2>Cup Fund</h2>';
                                                 console.log('cup fund btn clicked');
                                                 break;
 
                                             case 'foodPickup':
-                                                items_div.innerHTML = '<h2>Food Pickup</h2>';
                                                 console.log('food pickup btn clicked');
                                                 break;
 
                                             case 'redCross':
-                                                items_div.innerHTML = '<h2>Red Cross</h2>';
                                                 console.log('red cross btn clicked');
                                                 break;
 
@@ -479,12 +593,10 @@ category_btns.forEach(btn => {
                                         const name = donations_row2_btn.value;
                                         switch (name) {
                                             case 'smlBag':
-                                                items_div.innerHTML = '<h2>Small Bag</h2>';
                                                 console.log('small bag btn clicked');
                                                 break;
 
                                             case 'lgBag':
-                                                items_div.innerHTML = '<h2>Large Bag</h2>';
                                                 console.log('large bag btn clicked');
                                                 break;
 
