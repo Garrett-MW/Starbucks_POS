@@ -337,11 +337,15 @@ body {
 }
 
 #shot_div{
-  width: 100%;
+  width: 70px;
+  height: 200px;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   margin: 10% auto;
+  position: relative;
+  top: -20px;
 }
 
 #iced_div{
@@ -349,6 +353,11 @@ body {
   flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
+}
+
+.label_div{
+  display: flex;
+  flex-direction: column;
 }
 
 .square{
@@ -387,8 +396,8 @@ body {
 #shots_content_div button{
   height: 60px;
   width: 70px;
-  background-color: rgb(124, 123, 123);
-  color: white;
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
   border-radius: 9px;
   border: none;
   box-shadow: 0px 0px 5px rgb(77, 76, 76);
@@ -397,7 +406,7 @@ body {
 
 #shots_content_div button:hover{
   background-color: rgb(77, 76, 76);
-  color: white;
+  color: rgb(207, 204, 204);
   transition: background-color 0.3s ease-in;
 }
 
@@ -412,12 +421,22 @@ body {
 }
 
 .bev_type_btn{
+  background-color: rgb(207, 204, 204);
+  color:rgb(77, 76, 76);
   height: 40px;
   width: 70px;
   padding: 3%;
   font-size: 10px;
   font-weight: bolder;
+  border-radius: 5px;
   box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  border: none;
+}
+
+.bev_type_btn:hover{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  transition: background-color 0.3s ease-in;
 }
 
 #loyalty_div{
@@ -547,13 +566,20 @@ body {
 }
 
 .syrup_mod_btn{
-  height: 45px;
-  width: 60px;
-  font-size: large;
-  color: white;
-  background-color: black;
-  border-radius: 5%;
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  height: 55px;
+  width: 55px;
+  border-radius: 9px;
   border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  padding: 1%;
+}
+
+.syrup_mod_btn:hover{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  transition: background-color 0.3s ease-in;
 }
 
 #syrup_container{
@@ -564,10 +590,79 @@ body {
   justify-content: space-around;
 }
 
+#syrup_choices_div{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-items: center;
+  row-gap: 20px;
+}
+
+#sauce_choices_div{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#seasonal_options_div{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
 .syrup_btn{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
   height: 60px;
   width: 60px;
-  font-size: 12px;
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  padding: 1%;
+}
+
+.syrup_btn:hover {
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  transition: background-color 0.3s ease-in;
+}
+
+.sauce_btn {
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  height: 60px;
+  width: 60px;
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  padding: 1%;
+}
+
+.sauce_btn:hover{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  transition: background-color 0.3s ease-in;
+}
+
+.option_btn{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  height: 60px;
+  width: 60px;
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  padding: 1%;
+}
+
+.option_btn:hover{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  transition: background-color 0.3s ease-in;
+}
+
+.div_label{
+  font-size: 10px;
+  color: rgb(124, 123, 123);
+  font-weight: bold;
   margin: 2%;
 }
 
@@ -593,9 +688,11 @@ body {
   background-color: rgb(207, 204, 204);
   color: rgb(77, 76, 76);
   height: 60px;
-  width: 100%;
+  width: 90%;
   border-radius: 9px;
   border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  padding: 1%;
  }
 
  .custom_options_btns:hover{
@@ -643,30 +740,54 @@ body {
 
 #milk_container{
   display: flex;
-  border: 1px solid red;
+  padding: 2%;
 }
 
-#splash_milk_div, #replace_milk_div{
+.milk_mod_btn{
+  background-color: rgb(77, 76, 76);
+  color: rgb(207, 204, 204);
+  height: 50px;
+  width: 30%;
+  padding: 1%;
+  font: 14px;
+  margin: 4%;
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 5px rgb(77, 76, 76);
+}
+
+.milk_mod_btn:hover{
+  background-color: rgb(207, 204, 204);
+  color: rgb(77, 76, 76);
+  transition: background-color 0.3s ease-in;
+}
+
+
+#splash_milk_div{
+  display:grid;
+  grid-template-columns: auto auto;
+  row-gap: 20px;
+  justify-items: center;
+}
+
+ #replace_milk_div{
   display: grid;
   grid-template-columns: auto auto;
-  row-gap: 15px;
-  column-gap: 10px;
-  border: 1px solid red;
-  justify-content: space-evenly;
-}
-
-#replace_milk_div{
+  row-gap: 20px;
+  justify-items: center;
   padding-top: 10%;
-}
+ }
+
 
 .milk_btn{
   height: 50px;
-  width: 50%;
+  width: 70%;
   background-color: rgb(207, 204, 204);
   color: rgb(77, 76, 76);
   border-radius: 9px;
   border: none;
   box-shadow: 0px 0px 5px rgb(77, 76, 76);
+  padding: 1%;
 }
 
 

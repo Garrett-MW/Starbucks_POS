@@ -11,6 +11,11 @@ let rtde_data = null;
 let drink_data = null;
 let beans_data = null;
 
+window.addEventListener('load', () => {
+    const drink_btn = document.getElementById('drink_btn');
+    drink_btn.click();
+});
+
 
 async function load_food() {
     try {
@@ -117,6 +122,11 @@ category_btns.forEach(btn => {
                                     pastries_div.appendChild(pastry_btn);
                                 });
 
+                                const pastries_label = document.createElement('span');
+                                pastries_label.className = 'div_label';
+                                pastries_label.textContent = 'Pastries';
+
+                                items_div.appendChild(pastries_label);
                                 items_div.appendChild(pastries_div);
 
 
@@ -145,6 +155,11 @@ category_btns.forEach(btn => {
                                     loaves_div.appendChild(loaf_btn);
                                 });
 
+                                const loaves_label = document.createElement('span');
+                                loaves_label.className = 'div_label';
+                                loaves_label.textContent = 'Loaves & Cakes';
+
+                                items_div.appendChild(loaves_label);
                                 items_div.appendChild(loaves_div);
 
                                 break;
@@ -172,6 +187,11 @@ category_btns.forEach(btn => {
                                     croissants_div.appendChild(croissant_btn);
                                 });
 
+                                const croissant_label = document.createElement('span');
+                                croissant_label.className = 'div_label';
+                                croissant_label.textContent = 'Bagels & Croissants';
+
+                                items_div.appendChild(croissant_label);
                                 items_div.appendChild(croissants_div);
 
                                 break;
@@ -199,6 +219,11 @@ category_btns.forEach(btn => {
                                     lunch_div.appendChild(lunch_btn);
                                 });
 
+                                const lunch_label = document.createElement('span');
+                                lunch_label.className = 'div_label';
+                                lunch_label.textContent = 'Lunch & Snacks';
+
+                                items_div.appendChild(lunch_label);
                                 items_div.appendChild(lunch_div);
 
                                 break;
@@ -226,6 +251,11 @@ category_btns.forEach(btn => {
                                     brownies_div.appendChild(brownie_btn);
                                 });
 
+                                const brownie_label = document.createElement('span');
+                                brownie_label.className = 'div_label';
+                                brownie_label.textContent = 'Bronwies & Cookies';
+
+                                items_div.appendChild(brownie_label);
                                 items_div.appendChild(brownies_div);
 
                                 break;
@@ -253,6 +283,11 @@ category_btns.forEach(btn => {
                                     breakfast_div.appendChild(breakfast_btn);
                                 });
 
+                                const breakfast_label = document.createElement('span');
+                                breakfast_label.className = 'div_label';
+                                breakfast_label.textContent = 'Hot Breakfast';
+
+                                items_div.appendChild(breakfast_label);
                                 items_div.appendChild(breakfast_div);
 
                                 break;
@@ -774,8 +809,13 @@ category_btns.forEach(btn => {
                                 label_span.textContent = label.value;
                                 const square_span = document.createElement('span');
                                 square_span.className = 'square';
-                                shot_div.appendChild(label_span);
-                                shot_div.appendChild(square_span);
+
+                                const label_div = document.createElement('div');
+                                label_div.className = 'label_div';
+                                label_div.appendChild(label_span);
+                                label_div.appendChild(square_span);
+                                shot_div.appendChild(label_div);
+
                             }
                             drink_btn.appendChild(shot_div);
                         });
@@ -955,7 +995,7 @@ category_btns.forEach(btn => {
 
                                 sauce_choices.forEach(sauce => {
                                     const sauce_btn = document.createElement('button');
-                                    sauce_btn.className = 'suace_btn';
+                                    sauce_btn.className = 'sauce_btn';
                                     sauce_btn.value = sauce.value;
                                     sauce_btn.textContent = sauce.label;
                                     sauce_choices_div.appendChild(sauce_btn);
@@ -984,8 +1024,24 @@ category_btns.forEach(btn => {
 
                                 });
 
+                                const syrup_label = document.createElement('span');
+                                syrup_label.textContent = 'Syrups';
+                                syrup_label.className = 'div_label';
+
+                                const sauce_label = document.createElement('span');
+                                sauce_label.textContent = 'Sauces';
+                                sauce_label.className = 'div_label';
+
+                                const seasonal_label = document.createElement('span');
+                                seasonal_label.textContent = 'Seasonal';
+                                seasonal_label.className = 'div_label';
+
+
+                                syrup_container.appendChild(syrup_label);
                                 syrup_container.appendChild(syrup_choices_div);
+                                syrup_container.appendChild(sauce_label);
                                 syrup_container.appendChild(sauce_choices_div);
+                                syrup_container.appendChild(seasonal_label);
                                 syrup_container.appendChild(seasonal_options_div);
 
                                 syrup_div.appendChild(syrup_amount_div);
@@ -1017,7 +1073,10 @@ category_btns.forEach(btn => {
                                 ]
 
                                 const replace_milk = document.createElement('div');
-                                replace_milk.id = 'replace_milk_div';
+                                replace_milk.id = 'replace_milk';
+
+                                const replace_milk_div = document.createElement('div');
+                                replace_milk_div.id = 'replace_milk_div';
 
                                 milks.forEach(milk => {
                                     const milk_btn = document.createElement('button');
@@ -1029,7 +1088,7 @@ category_btns.forEach(btn => {
                                         console.log(`${milk.label} btn clicked`)
                                     });
 
-                                    replace_milk.appendChild(milk_btn);
+                                    replace_milk_div.appendChild(milk_btn);
                                 });
 
 
@@ -1084,8 +1143,20 @@ category_btns.forEach(btn => {
                                     splash_milk_div.appendChild(splash_milk_btn);
                                 });
 
+                                const splash_milk_label = document.createElement('span');
+                                splash_milk_label.textContent = 'Splash';
+                                splash_milk_label.className = 'div_label';
+
+                                const replace_milk_label = document.createElement('span');
+                                replace_milk_label.textContent = 'Substitute'
+                                replace_milk_label.className = 'div_label';
+
+                                splash_milk.appendChild(splash_milk_label);
                                 splash_milk.appendChild(milk_mod_div);
                                 splash_milk.appendChild(splash_milk_div);
+
+                                replace_milk.appendChild(replace_milk_label);
+                                replace_milk.appendChild(replace_milk_div);
 
                                 milk_container.appendChild(replace_milk);
                                 milk_container.appendChild(splash_milk);
