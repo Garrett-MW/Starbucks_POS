@@ -5,22 +5,101 @@ const item_search_div = document.querySelector('#item_search_div');
 const item_type_div = document.querySelector('#item_type_div');
 const category_btns = document.querySelectorAll('.category_btn');
 const bev_type = document.getElementById('bev_type');
+const cam_feed_div = document.getElementById('camera_feed');
+const cam_switch = document.getElementById('cam_switch');
+
+let cam_power = false;
 
 let food_data = null;
 let rtde_data = null;
 let drink_data = null;
 let beans_data = null;
 
-window.addEventListener('load', () => {
+window.addEventListener('pageshow', () => {
+
+    clear_item_data();
+    load_item_data();
+
+    set_partner_name();
+
     const drink_btn = document.getElementById('drink_btn');
     drink_btn.click();
+
 });
+
+function clear_item_data() {
+    food_data = null;
+    rtde_data = null;
+    drink_data = null;
+    beans_data = null;
+}
+
+function load_item_data() {
+    load_drinks();
+    load_beans();
+    load_food();
+    load_rtde()
+}
+
+function set_partner_name() {
+    const stored_partner = localStorage.getItem('1');
+    if (stored_partner) {
+        const partner = JSON.parse(stored_partner);
+        const name_field = document.getElementById('name_field');
+        name_field.textContent = partner.name;
+    }
+}
+
+
+cam_switch.addEventListener('click', () => {
+    switch (cam_power) {
+        case true:
+            stop_camera()
+            break
+
+        case false:
+            start_camera()
+            break;
+
+        default:
+            break;
+    }
+});
+
+
+function start_camera() {
+    const video_tag = document.createElement('video');
+    video_tag.id = 'vid'
+
+    const camera = navigator.mediaDevices;
+
+    video_tag.muted = true;
+    camera
+        .getUserMedia({
+            video: true,
+            audio: true,
+        })
+        .then((stream) => {
+            video_tag.srcObject = stream;
+            video_tag.addEventListener('loadedmetadata', () => {
+                video_tag.play();
+            })
+        });
+    cam_power = true;
+    cam_feed_div.appendChild(video_tag);
+}
+
+function stop_camera() {
+    cam_feed_div.innerHTML = '';
+    cam_power = false;
+}
 
 
 async function load_food() {
     try {
         const response = await fetch('/data/food');
         const data = await response.json();
+        food_data = data;
         return data;
 
     } catch (error) {
@@ -34,6 +113,7 @@ async function load_rtde() {
     try {
         const response = await fetch('/data/rtde');
         const data = await response.json();
+        rtde_data = data;
         return data;
 
     } catch (error) {
@@ -46,6 +126,7 @@ async function load_beans() {
     try {
         const response = await fetch('/data/beans');
         const data = await response.json()
+        beans_data = data;
         return data;
 
     } catch (error) {
@@ -59,6 +140,7 @@ async function load_drinks() {
     try {
         const response = await fetch('/data/drinks');
         const data = await response.json();
+        drink_data = data;
         return data;
 
     } catch (error) {
@@ -75,8 +157,6 @@ category_btns.forEach(btn => {
         switch (name) {
 
             case "food":
-
-                const food_data = await load_food();
 
                 bev_type.innerHTML = " ";
                 item_type_div.innerHTML = " ";
@@ -307,7 +387,6 @@ category_btns.forEach(btn => {
 
             case "rtde":
 
-                const rtde_data = await load_rtde();
                 bev_type.innerHTML = " ";
                 item_type_div.innerHTML = " ";
 
@@ -682,8 +761,6 @@ category_btns.forEach(btn => {
 
             case "beans":
 
-                const beans_data = await load_beans();
-
                 bev_type.innerHTML = "";
                 item_type_div.innerHTML = "";
 
@@ -765,7 +842,6 @@ category_btns.forEach(btn => {
 
             case "drinks":
 
-                const drink_data = await load_drinks();
                 item_type_div.innerHTML = "";
                 bev_type.innerHTML = "";
 
@@ -1224,7 +1300,7 @@ category_btns.forEach(btn => {
                                     { label: 'Strawberry Inclusions' },
                                     { label: 'Mango Dragonfruit Inclusions' },
                                     { label: 'Raspberry Flavored Pearls' },
-                                    { label: 'Blackberry Inclusions' },
+                                    { label: 'Blackberry Inclusions' }
                                 ]
                                 customs.forEach(custom => {
                                     const btn_div = document.createElement('div');
@@ -1689,5 +1765,5 @@ final_price_btn.addEventListener('click', () => {
 });
 
 
-//  MAIN.HTML END 
+
 

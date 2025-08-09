@@ -46,7 +46,7 @@ exit_btn.addEventListener('click', async function () {
         const logoutResponse = await fetch(`/logout/${drawer_key}`, { method: 'DELETE' });
         const data = await logoutResponse.json();
         if (data.success) {
-            lcalStorage.removeItem(drawer_key);
+            localStorage.removeItem(drawer_key);
             await check_drawer_status();
             window.location.reload();
         } else {
@@ -93,7 +93,11 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
 
             if (data.success) {
                 const drawer_key = drawer_assigned.toString()
-                localStorage.setItem(drawer_key, partner_num.value);
+                const partner = {
+                    partner_num: data.partner_num,
+                    name: `${data.first_name} ${data.last_name}`
+                }
+                localStorage.setItem(drawer_key, JSON.stringify(partner));
                 pop_up_container.hidden = false;
 
             } else {
@@ -172,7 +176,6 @@ async function return_open_drawer(drawer_num) {
         }
     }
 };
-
 
 
 async function check_drawer_status() {

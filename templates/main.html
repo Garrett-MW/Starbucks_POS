@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/styles/main.css">
     <script src="/static/scripts/main/main.js" defer></script>
-    <title>Document</title>
+    <title>Point Of Sale</title>
 </head>
 <body id="main_body">
 
@@ -18,7 +18,7 @@
                 <button class="tender_btn" value="functions">Functions</button>
             </div>
             <div id="tender_container">
-                <p id="partner_name"><span id="circle">&#9675;</span> Partner Name <span id="storeId">2516</span></p>
+                <p id="partner_name"><span id="circle">&#9675;</span> <span id="name_field"></span> <span id="storeId">2516</span></p>
                 <div id="tender_items">
                     
                 </div>
@@ -40,11 +40,13 @@
                             </div>
                         </div>
                     </div>
-                    <div id="functions">
+                    <div id="functions_div">
                         <button class="func_btn" id="void_btn" value="void"><div id="btn_shadow">Void Item</div></button>
                         <button class="func_btn" value="here">For Here Order</button>
                         <button class="func_btn" value="discount">Discount</button>
-                        <button class="func_btn" value="logout">Logout</button>
+                    </div>
+                    <div id="functions_div2">
+                        <button class="func_btn" value="logout"><i class="fas fa-clock" style="color: black; height: 20px; width: 20px;"></i></button>
                         <button class="func_btn" id="cancel_btn" value="cancel">Cancel</button>
                         <button class="func_btn" value="togo">To Go Order</button>
                         <button class="func_btn"  id="save_order" value="save">Save Order</button>
@@ -91,8 +93,8 @@
         <div id="right_div">
         
             <div id="camera_div">
-                <div id="camera_feed" style="text-align: center; line-height: 50px;">
-                    Figure out camera 
+                <div id="camera_feed">
+                   
                 </div>
                 <div id="cam_btns">
                     <button class='cam_btn' id="cam_switch" value="power">| / O</button>
@@ -121,5 +123,6 @@
             </div>
 
     </div>
+    <script src="https://kit.fontawesome.com/3d58ae73e7.js" crossorigin="anonymous"></script>
 </body>
 </html>
