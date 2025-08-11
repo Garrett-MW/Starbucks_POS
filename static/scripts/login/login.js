@@ -3,12 +3,11 @@ const pop_up_container = document.getElementById('pop_up_container');
 const pin_enter = document.getElementById('pin_enter_btn');
 const num_btns = document.querySelectorAll('.num_pad');
 const pin_btns = document.querySelectorAll('.pin_pad');
-const partner_pin = document.getElementById('partner_pin');
 const clear_btn = document.getElementById('clear_btn');
 const pin_clear_btn = document.getElementById('pin_clear_btn');
+const pin_input = document.getElementById('partner_pin');
 const exit_btn = document.getElementById('exit');
 const date_time = document.getElementById('date_time');
-const pin_input = document.getElementById('partner_pin');
 const partner_num = document.getElementById('partner_num');
 const drawers = document.querySelectorAll('.drawer');
 let selected_drawer = 0;
@@ -68,6 +67,7 @@ drawers.forEach(drawer => {
         const session = await response.json();
         const drawer_session = session[drawer_key];
         if (drawer_session) {
+            sessionStorage.setItem('current_drawer', drawer_key);
             partner_num.value = drawer_session.partner_num;
             pop_up_container.hidden = false;
         }
@@ -88,16 +88,19 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
     }
     else {
         try {
-            const response = await fetch(`/login/${partner_num.value}/${drawer_assigned}`, { method: 'POST' });
+            const response = await fetch(`/login/${partner_num.value}/${drawer_assigned}`, { method: 'POST' }); //PROBLEM: messes up if pin is entered wrong doesnt creata cookie if multiple tries 
             const data = await response.json();
+            const partner_data = data['partner'];
 
             if (data.success) {
                 const drawer_key = drawer_assigned.toString()
-                const partner = {
-                    partner_num: data.partner_num,
-                    name: `${data.first_name} ${data.last_name}`
-                }
-                localStorage.setItem(drawer_key, JSON.stringify(partner));
+                sessionStorage.setItem('current_drawer', selected_drawer)
+                const session_data = {
+                    drawer: selected_drawer,
+                    partner_num: `${partner_data['partner_num']}`,
+                    name: `${partner_data['first_name']} ${partner_data['last_name']}`
+                };
+                localStorage.setItem(drawer_key, JSON.stringify(session_data));
                 pop_up_container.hidden = false;
 
             } else {
@@ -118,21 +121,37 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
 
 
 pin_enter.addEventListener('click', verify_partner_pin);
+
 async function verify_partner_pin() {
-    const drawer_key = selected_drawer.toString()
-    const session_data = localStorage.getItem(drawer_key)
-    const response = await fetch(`/login/${session_data}/${pin_input.value}/${selected_drawer}`, { method: 'POST' });
-    const data = await response.json();
-    if (data.success) {
-        selected_drawer = 0;
-        window.location.href = '/order';
-    } else {
-        selected_drawer = 0;
-        pin_input.value = '';
-        sessionStorage.removeItem(drawer_key);
-        alert(data['error']);
-        return;
+    try {
+
+        const pin = pin_input.value;
+        const drawer_assigned = sessionStorage.getItem('current_drawer');
+        const session_data = localStorage.getItem(drawer_assigned);
+
+        const response = await fetch(`/login/${pin}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(session_data)
+        });
+        const data = await response.json();
+        if (data.success) {
+            selected_drawer = 0;
+            window.location.href = '/order';
+        } else {
+            pin_input.value = '';
+            selected_drawer = 0;
+            alert(data['error']);
+            return;
+        }
     }
+    catch (err) {
+        alert(err);
+        console.log(err)
+    }
+
 }
 
 
@@ -199,7 +218,7 @@ async function check_drawer_status() {
 
 
 window.addEventListener('pageshow', () => {
-    check_drawer_status()
+    check_drawer_status();
     const date = new Date();
     date_time.textContent = `${date.toDateString()} / ${date.toLocaleTimeString()}`;
 });

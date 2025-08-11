@@ -8,6 +8,8 @@ const bev_type = document.getElementById('bev_type');
 const cam_feed_div = document.getElementById('camera_feed');
 const cam_switch = document.getElementById('cam_switch');
 
+let current_drawer = sessionStorage.getItem('current_drawer');
+
 let cam_power = false;
 
 let food_data = null;
@@ -42,7 +44,7 @@ function load_item_data() {
 }
 
 function set_partner_name() {
-    const stored_partner = localStorage.getItem('1');
+    const stored_partner = localStorage.getItem(current_drawer);
     if (stored_partner) {
         const partner = JSON.parse(stored_partner);
         const name_field = document.getElementById('name_field');
@@ -153,7 +155,6 @@ async function load_drinks() {
 category_btns.forEach(btn => {
     const name = btn.value;
     btn.addEventListener('click', async function () {
-
         switch (name) {
 
             case "food":
@@ -426,6 +427,11 @@ category_btns.forEach(btn => {
                                     juice_div.appendChild(juice_btn)
                                 });
 
+                                const juice_label = document.createElement('span');
+                                juice_label.className = 'div_label';
+                                juice_label.textContent = 'Coffee, Juice & Milk';
+
+                                items_div.appendChild(juice_label);
                                 items_div.appendChild(juice_div);
 
 
@@ -453,6 +459,11 @@ category_btns.forEach(btn => {
                                     soda_div.appendChild(soda_btn)
                                 });
 
+                                const soda_label = document.createElement('span');
+                                soda_label.className = 'div_label';
+                                soda_label.textContent = 'Water & Soda';
+
+                                items_div.appendChild(soda_label);
                                 items_div.appendChild(soda_div);
 
                                 break;
@@ -479,6 +490,11 @@ category_btns.forEach(btn => {
                                     impulse_div.appendChild(impulse_btn);
                                 });
 
+                                const impulse_label = document.createElement('span');
+                                impulse_label.className = 'div_label';
+                                impulse_label.textContent = 'Impulse';
+
+                                items_div.appendChild(impulse_label);
                                 items_div.appendChild(impulse_div);
 
                                 break;
@@ -505,6 +521,11 @@ category_btns.forEach(btn => {
                                     regional_div.appendChild(regional_btn);
                                 });
 
+                                const regional_label = document.createElement('span');
+                                regional_label.className = 'div_label';
+                                regional_label.textContent = 'Regional';
+
+                                items_div.appendChild(regional_label);
                                 items_div.appendChild(regional_div);
 
                                 break;
@@ -616,9 +637,16 @@ category_btns.forEach(btn => {
                                         }
                                     });
                                 });
+
                                 loyalty_div.appendChild(card_btns_div);
                                 loyalty_div.appendChild(loyalty_btns_div);
 
+
+                                const loyalty_label = document.createElement('span');
+                                loyalty_label.className = 'div_label';
+                                loyalty_label.textContent = 'Loyalty';
+
+                                items_div.appendChild(loyalty_label);
                                 items_div.appendChild(loyalty_div)
                                 break;
 
@@ -682,10 +710,16 @@ category_btns.forEach(btn => {
                                         console.log(`${bulk_row3_btn.textContent} btn clicked`);
                                     });
                                 });
+
                                 bulk_div.appendChild(bulk_row1);
                                 bulk_div.appendChild(bulk_row2);
                                 bulk_div.appendChild(bulk_row3);
 
+                                const bulk_label = document.createElement('span');
+                                bulk_label.className = 'div_label';
+                                bulk_label.textContent = 'Bulk';
+
+                                items_div.appendChild(bulk_label);
                                 items_div.appendChild(bulk_div);
                                 break;
 
@@ -736,6 +770,11 @@ category_btns.forEach(btn => {
                                 donations_div.appendChild(donations_row1);
                                 donations_div.appendChild(donations_row2);
 
+                                const donations_label = document.createElement('span');
+                                donations_label.className = 'div_label';
+                                donations_label.textContent = 'Donations';
+
+                                items_div.appendChild(donations_label);
                                 items_div.appendChild(donations_div);
                                 break;
 
@@ -797,6 +836,11 @@ category_btns.forEach(btn => {
                                     core_div.appendChild(core_btn);
                                 });
 
+                                const core_label = document.createElement('span');
+                                core_label.className = 'div_label';
+                                core_label.textContent = 'Core';
+
+                                items_div.appendChild(core_label);
                                 items_div.appendChild(core_div);
 
 
@@ -822,6 +866,11 @@ category_btns.forEach(btn => {
                                     reserve_div.appendChild(reserve_btn);
                                 });
 
+                                const reserve_label = document.createElement('span');
+                                reserve_label.className = 'div_label';
+                                reserve_label.textContent = 'Reserve';
+
+                                items_div.appendChild(reserve_label);
                                 items_div.appendChild(reserve_div);
 
 
@@ -1606,6 +1655,7 @@ category_btns.forEach(btn => {
                 break;
         }
     });
+
 });
 
 function setFirstItemTypeToClick(value) {
@@ -1620,11 +1670,31 @@ const tender_btns = document.querySelectorAll('.tender_btn');
 tender_btns.forEach(btn => {
     const name = btn.value;
     btn.addEventListener('click', () => {
+
         switch (name) {
             case "functions":
-                // INSERT BUTTON LOGIC
-                //DISPLAY FUNCTIONS PAGE (TAKE PICTURE)
-                console.log("functions btn clicked");
+                items_div.innerHTML = '';
+
+                const functions_div = document.createElement('div');
+                functions_div.id = 'functions_div';
+
+                const unassign_drawer_btn = document.createElement('button');
+                unassign_drawer_btn.textContent = 'Unassign Drawer';
+                unassign_drawer_btn.id = 'unassign_drawer_btn';
+                functions_div.appendChild(unassign_drawer_btn);
+
+                unassign_drawer_btn.addEventListener('click', async function () {
+                    const response = await fetch(`/logout/${current_drawer}`);
+                    const data = await response.json();
+                    if (data.success) {
+                        localStorage.removeItem(current_drawer);
+                        sessionStorage.clear();
+                        window.location.replace('/');
+                    }
+                });
+
+                items_div.appendChild(functions_div);
+
                 break;
             case "tender":
                 // INSERT BUTTON LOGIC
@@ -1688,6 +1758,7 @@ func_btns.forEach(btn => {
                 console.log('discount btn clicked');
                 break;
             case 'logout':
+                sessionStorage.clear()
                 window.location.replace('/');
                 break;
             case "cancel":

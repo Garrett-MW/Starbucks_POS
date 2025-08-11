@@ -20,7 +20,7 @@ def set_app_routes(app):  #method declares routes for app parameter passed
     
     @app.route('/order')
     def order():
-            return render_template('main.html')
+        return render_template('main.html')
 
     
     @app.route('/login/<partner_num>/<drawer>', methods=['POST'])
@@ -35,7 +35,8 @@ def set_app_routes(app):  #method declares routes for app parameter passed
                 if not returned_partner:
                     return jsonify({"error": "Partner not found"}), 404         ##RESOURCE NOT FOUND
                 returned_partner['assigned_drawer'] = {'drawer':str(drawer)}
-                return(redirect(url_for('create_session', partner=json.dumps(returned_partner), drawer=drawer)))
+                ##return(redirect(url_for('create_session', partner=json.dumps(returned_partner), drawer=drawer))) ##Causing problem when with logging
+                return jsonify({'success': True, 'partner':returned_partner}), 200
         
             except Exception as e:
                 traceback.print_exc()
@@ -43,40 +44,25 @@ def set_app_routes(app):  #method declares routes for app parameter passed
         
 
     
-    @app.route('/login/<partner_num>/<pin>/<drawer>', methods=['POST'])
-    def get_pin(partner_num, pin, drawer):
+    @app.route('/login/<pin>', methods=['POST'])
+    def get_pin(pin):
         try:
             partner = Partner.__new__(Partner)
-            data = partner.db_verify_pin(str(partner_num), str(pin))
+            session_data = request.get_json()
+            parsed_data = json.loads(session_data)
+            print(parsed_data)
+            
+            if not session_data:
+                return jsonify({'error': 'No session data'}), 400
+            data = partner.db_verify_pin(parsed_data['partner_num'], pin)
             if data == True:
-                return jsonify(success=True)
+                return create_session()
             else:
-                session.pop(str(drawer), None)
+                session.pop(str(parsed_data['drawer']), None)
                 return jsonify({'error': 'Unauthorized, Try Again'}), 401        ##UNAUTHORIZED: INVALID CREDENTIALS
             
         except Exception as e:
             traceback.print_exc()
-            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-        
-
-        
-    @app.route('/logout/<drawer>', methods=['DELETE'])
-    def delete_session(drawer):
-        try:
-            session.pop(str(drawer), None)
-            return jsonify({'success': True}), 200
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-        
-    @app.route('/session/<drawer>', methods=['POST'])
-    def get_session(drawer):
-        try:
-            data = session.get(str(drawer))
-            if data:
-                return jsonify({'success': True}), 200
-            else:
-                 return jsonify({"error": "Session not found"}), 404 
-        except Exception as e:
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
     
 
@@ -129,7 +115,6 @@ def set_app_routes(app):  #method declares routes for app parameter passed
         except Exception as e:
             traceback.print_exc()
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-        
 
 
     @app.route('/sessions', methods=['POST'])
@@ -143,20 +128,39 @@ def set_app_routes(app):  #method declares routes for app parameter passed
             traceback.print_exc()
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
     
-    
 
-    @app.route('/session/<partner>/<drawer>') ##FIX SO INFO ISNT SENT THROUGH TERMINAL 
-    def create_session(partner, drawer):
+    @app.route('/session', methods=['POST']) ##THIS IS A MESS
+    def create_session():
         try:
-            partner_dict = json.loads(partner)
+            session_data = request.get_json()
+            parsed_data = json.loads(session_data)
             for key in session:
-                if session[key]['partner_num'] == partner_dict['partner_num']:
+                if session[key]['partner_num'] == parsed_data['partner_num']:
                     return jsonify({'error': 'session already exists'}), 409        ##CONFLICT ERROR
-            session[str(drawer)] = {'name':f'{partner_dict['first_name']} {partner_dict['last_name']}', 'partner_num': f'{partner_dict['partner_num']}'}
+            session[str(parsed_data['drawer'])] = {'name':f'{parsed_data['name']}', 'partner_num': f'{parsed_data['partner_num']}'}
             return jsonify(success=True) 
         except Exception as e:
             traceback.print_exc()
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
 
-    
+
+    @app.route('/logout/<drawer>')
+    def delete_session(drawer):
+        try:
+            session.pop(str(drawer), None)
+            return jsonify({'success': True}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+        
+
+    @app.route('/session/<drawer>', methods=['POST'])
+    def get_session(drawer):
+        try:
+            data = session.get(str(drawer))
+            if data:
+                return jsonify({'success': True}), 200
+            else:
+                 return jsonify({"error": "Session not found"}), 404 
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
     
