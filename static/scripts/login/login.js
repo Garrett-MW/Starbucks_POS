@@ -148,8 +148,7 @@ async function verify_partner_pin() {
         }
     }
     catch (err) {
-        alert(err);
-        console.log(err)
+        alert('Incorrect PIN');
     }
 
 }
@@ -216,10 +215,14 @@ async function check_drawer_status() {
 
 }
 
+function update_time() {
+    const date = new Date();
+    date_time.textContent = `${date.toDateString()} / ${date.toLocaleTimeString()}`;
+};
+
 
 window.addEventListener('pageshow', () => {
     check_drawer_status();
-    const date = new Date();
-    date_time.textContent = `${date.toDateString()} / ${date.toLocaleTimeString()}`;
+    setInterval(update_time, 1000);
 });
 
