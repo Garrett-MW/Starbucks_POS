@@ -1684,7 +1684,15 @@ tender_btns.forEach(btn => {
                 functions_div.appendChild(unassign_drawer_btn);
 
                 unassign_drawer_btn.addEventListener('click', async function () {
-                    const response = await fetch(`/logout/${current_drawer}`);
+                    const response = await fetch(`/session`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            'drawer': sessionStorage.getItem('current_drawer')
+                        })
+                    });
                     const data = await response.json();
                     if (data.success) {
                         localStorage.removeItem(current_drawer);

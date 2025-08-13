@@ -1,3 +1,4 @@
+import certifi
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -9,7 +10,11 @@ class DB:
         try:
             load_dotenv()
             url = os.getenv('DB_URL')
-            client = MongoClient(url)
+            client = MongoClient(
+                url, 
+                tls=True,
+                tlsCAFile=certifi.where()
+                )
             self.conn = client['POSProject']
 
         except Exception as err:

@@ -1,4 +1,5 @@
 from flask import Response, json, render_template, redirect, request, url_for, jsonify, session#import flask in order to render html, and redirect user to other pages
+import requests
 from objects.order import Order #import order object 
 import datetime #import datetime in order to set a date and time for each order 
 from objects.partner import Partner
@@ -21,6 +22,62 @@ def set_app_routes(app):  #method declares routes for app parameter passed
     @app.route('/order')
     def order():
         return render_template('main.html')
+    
+        
+    @app.route('/data/<category>', methods=['GET'])
+    def return_data(category):
+
+        match category:
+
+            case 'drinks':
+                try:
+                    drink = Drink.__new__(Drink)
+                    data = drink.retrieve_drinks()
+                    return jsonify(data)
+        
+                except Exception as e:
+                    traceback.print_exc()
+                    return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+            
+
+            case 'food':
+                try:
+                    food = Food.__new__(Food)
+                    data = food.retrieve_food()
+                    return jsonify(data)
+                except Exception as e:
+                    traceback.print_exc()
+                    return jsonify({'error': str(e)}), 500  ##INTERNAL SERVER ERROR
+                
+
+            case 'rtde':
+                try:
+                    rtde = RTDE.__new__(RTDE)
+                    data = rtde.retrieve_rtde()
+                    return jsonify(data)
+        
+                except Exception as e:
+                    traceback.print_exc()
+                    return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+                
+
+            case 'beans':
+                try:
+                    bean = Bean.__new__(Bean)
+                    data = bean.retrieve_beans()
+                    return jsonify(data)
+        
+                except Exception as e:
+                    traceback.print_exc()
+                    return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+                
+
+            case _:
+                return jsonify({'error': 'Invalid Category'}), 404   ##CATEGORY NOT FOUND
+
+
+        
+
 
     
     @app.route('/login/<partner_num>/<drawer>', methods=['POST'])
@@ -35,8 +92,7 @@ def set_app_routes(app):  #method declares routes for app parameter passed
                 if not returned_partner:
                     return jsonify({"error": "Partner not found"}), 404         ##RESOURCE NOT FOUND
                 returned_partner['assigned_drawer'] = {'drawer':str(drawer)}
-                ##return(redirect(url_for('create_session', partner=json.dumps(returned_partner), drawer=drawer))) ##Causing problem when with logging
-                return jsonify({'success': True, 'partner':returned_partner}), 200
+                return jsonify({'success': True, 'partner':returned_partner}), 200   ##SUCCESS
         
             except Exception as e:
                 traceback.print_exc()
@@ -49,108 +105,35 @@ def set_app_routes(app):  #method declares routes for app parameter passed
         try:
             partner = Partner.__new__(Partner)
             session_data = request.get_json()
-            parsed_data = json.loads(session_data)
-            print(parsed_data)
-            
-            if not session_data:
-                return jsonify({'error': 'No session data'}), 400
-            data = partner.db_verify_pin(parsed_data['partner_num'], pin)
+            data = partner.db_verify_pin(session_data['partner_num'], pin)
+    
             if data == True:
-                return create_session()
+                session[str(session_data['drawer'])] = {
+                    'name': session_data['name'],
+                    'partner_num': session_data['partner_num']
+                }
+                return jsonify(success=True)
             else:
-                session.pop(str(parsed_data['drawer']), None)
                 return jsonify({'error': 'Unauthorized, Try Again'}), 401        ##UNAUTHORIZED: INVALID CREDENTIALS
             
         except Exception as e:
             traceback.print_exc()
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+
     
 
-
-    @app.route('/data/food', methods=['GET'])
-    def return_food():
+    @app.route('/sessions/<partner_num>', methods=['POST'])
+    def search_duplicate_sessions(partner_num):
         try:
-            food = Food.__new__(Food)
-            data = food.retrieve_food()
-            return jsonify(data)
-        except Exception as e:
-            traceback.print_exc()
-            return jsonify({'error': str(e)}), 500
-        
-
-
-    @app.route('/data/beans', methods=['GET'])
-    def return_beans():
-        try:
-            bean = Bean.__new__(Bean)
-            data = bean.retrieve_beans()
-            return jsonify(data)
-        
-        except Exception as e:
-            traceback.print_exc()
-            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-        
-
-
-    @app.route('/data/rtde', methods=['GET'])
-    def return_rtde():
-        try:
-            rtde = RTDE.__new__(RTDE)
-            data = rtde.retrieve_rtde()
-            return jsonify(data)
-        
-        except Exception as e:
-            traceback.print_exc()
-            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-
-
-
-    @app.route('/data/drinks', methods=['GET'])
-    def return_drinks():
-        try:
-            drink = Drink.__new__(Drink)
-            data = drink.retrieve_drinks()
-            return jsonify(data)
-        
-        except Exception as e:
-            traceback.print_exc()
-            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-
-
-    @app.route('/sessions', methods=['POST'])
-    def get_all_sessions():
-        try:
-            sessions = {}
             for x in session:
-                sessions[str(x)] = session.get(x)
-            return jsonify(sessions)
+                if session[x]['partner_num'] == partner_num: 
+                     return jsonify(success=True)
+        
+            return jsonify(success=False)
         except Exception as e:
             traceback.print_exc()
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-    
-
-    @app.route('/session', methods=['POST']) ##THIS IS A MESS
-    def create_session():
-        try:
-            session_data = request.get_json()
-            parsed_data = json.loads(session_data)
-            for key in session:
-                if session[key]['partner_num'] == parsed_data['partner_num']:
-                    return jsonify({'error': 'session already exists'}), 409        ##CONFLICT ERROR
-            session[str(parsed_data['drawer'])] = {'name':f'{parsed_data['name']}', 'partner_num': f'{parsed_data['partner_num']}'}
-            return jsonify(success=True) 
-        except Exception as e:
-            traceback.print_exc()
-            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
-
-
-    @app.route('/logout/<drawer>')
-    def delete_session(drawer):
-        try:
-            session.pop(str(drawer), None)
-            return jsonify({'success': True}), 200
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+        
         
 
     @app.route('/session/<drawer>', methods=['POST'])
@@ -158,9 +141,35 @@ def set_app_routes(app):  #method declares routes for app parameter passed
         try:
             data = session.get(str(drawer))
             if data:
-                return jsonify({'success': True}), 200
+                return jsonify({'success': True}), 200   ##SUCCESS
             else:
-                 return jsonify({"error": "Session not found"}), 404 
+                 return jsonify({"error": "Session not found"}), 404   ##SESSION NOT FOUND
         except Exception as e:
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+        
+
+    @app.route('/session', methods=['GET','POST', 'DELETE'])
+    def session_mananger():
+        
+        match request.method:
+
+            case 'GET':
+                try:
+                    session_list = {}
+                    for x in session:
+                        session_list[str(x)] = session.get(x)
+                    return jsonify(session_list)
+                except Exception as e:
+                    traceback.print_exc()
+                    return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+                
+
+            case 'DELETE':
+                try:
+                    request_content = request.get_json()
+                    session.pop(str(request_content['drawer']), None)
+                    return jsonify({'success': True}), 200     ##SUCCESS
+                except Exception as e:
+                    return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
+                
     

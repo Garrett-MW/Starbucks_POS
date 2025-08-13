@@ -40,12 +40,20 @@ exit_btn.addEventListener('click', async function () {
     const session = await response.json();
 
     if (session.success) {
+        console.log('page reloaded');
         window.location.reload();
     } else {
-        const logoutResponse = await fetch(`/logout/${drawer_key}`, { method: 'DELETE' });
+        const logoutResponse = await fetch(`/session`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'drawer': drawer_key })
+        });
         const data = await logoutResponse.json();
         if (data.success) {
             localStorage.removeItem(drawer_key);
+            console.log('Drawer session deleted')
             await check_drawer_status();
             window.location.reload();
         } else {
@@ -63,7 +71,7 @@ drawers.forEach(drawer => {
     drawer.addEventListener('click', async function () {
         selected_drawer = drawer.value;
         const drawer_key = selected_drawer.toString()
-        const response = await fetch('/sessions', { method: 'POST' });
+        const response = await fetch('/session', { method: 'GET' });
         const session = await response.json();
         const drawer_session = session[drawer_key];
         if (drawer_session) {
@@ -80,8 +88,8 @@ drawers.forEach(drawer => {
 
 enter_btn.addEventListener('click', async function verify_partner_num() {
     const drawer_assigned = await return_open_drawer(selected_drawer);
-    selected_drawer = drawer_assigned
-    if (drawer_assigned === 0) {
+    selected_drawer = drawer_assigned;
+    if (selected_drawer === 0) {
         alert('All Drawers Assigned');
         partner_num = '';
         return;
@@ -93,6 +101,13 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
             const partner_data = data['partner'];
 
             if (data.success) {
+                const existing_session = await check_existing_session(partner_data['partner_num']);
+                if (existing_session.success) {
+                    partner_num.value = '';
+                    selected_drawer = 0;
+                    alert('Session Already Exists');
+                    return;
+                }
                 const drawer_key = drawer_assigned.toString()
                 sessionStorage.setItem('current_drawer', selected_drawer)
                 const session_data = {
@@ -105,6 +120,7 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
 
             } else {
                 partner_num.value = '';
+                selected_drawer = 0
                 alert(data['error']);
                 return;
 
@@ -112,6 +128,7 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
         }
         catch (error) {
             partner_num.value = '';
+            selected_drawer = 0;
             alert(error);
             return;
         }
@@ -127,7 +144,7 @@ async function verify_partner_pin() {
 
         const pin = pin_input.value;
         const drawer_assigned = sessionStorage.getItem('current_drawer');
-        const session_data = localStorage.getItem(drawer_assigned);
+        const session_data = JSON.parse(localStorage.getItem(drawer_assigned));
 
         const response = await fetch(`/login/${pin}`, {
             method: 'POST',
@@ -153,9 +170,16 @@ async function verify_partner_pin() {
 
 }
 
+async function check_existing_session(partner_num) {
+    const response = await fetch(`/sessions/${partner_num}`, { method: 'POST' });
+    const data = await response.json();
+    return data
+
+}
+
 
 async function return_open_drawer(drawer_num) {
-    const response = await fetch('/sessions', { method: 'POST' });
+    const response = await fetch('/session', { method: 'GET' });
     const session = await response.json();
     if (drawer_num == 0) {
         if (session["1"]) {
@@ -197,7 +221,7 @@ async function return_open_drawer(drawer_num) {
 
 
 async function check_drawer_status() {
-    const response = await fetch('/sessions', { method: 'POST' });
+    const response = await fetch('/session', { method: 'GET' });
     const session = await response.json();
     if (session["1"]) {
         drawer1.textContent = session["1"]['name'];
@@ -223,6 +247,6 @@ function update_time() {
 
 window.addEventListener('pageshow', () => {
     check_drawer_status();
-    setInterval(update_time, 1000);
+    setInterval(update_time, 1000)
 });
 
