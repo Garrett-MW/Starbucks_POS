@@ -76,10 +76,7 @@ def set_app_routes(app):  #method declares routes for app parameter passed
                 return jsonify({'error': 'Invalid Category'}), 404   ##CATEGORY NOT FOUND
 
 
-        
 
-
-    
     @app.route('/login/<partner_num>/<drawer>', methods=['POST'])
     def get_id(partner_num, drawer):  
         total_sessions = len(session)
@@ -148,7 +145,7 @@ def set_app_routes(app):  #method declares routes for app parameter passed
             return jsonify({'error': str(e)}), 500      ##INTERNAL SERVER ERROR
         
 
-    @app.route('/session', methods=['GET','POST', 'DELETE'])
+    @app.route('/session', methods=['GET', 'DELETE'])
     def session_mananger():
         
         match request.method:

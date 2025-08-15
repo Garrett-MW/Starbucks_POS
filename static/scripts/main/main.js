@@ -29,6 +29,16 @@ window.addEventListener('pageshow', () => {
 
 });
 
+function set_partner_name() {
+    const stored_partner = localStorage.getItem(current_drawer);
+    if (stored_partner) {
+        const partner = JSON.parse(stored_partner);
+        const name_field = document.getElementById('name_field');
+        name_field.textContent = partner.name;
+    }
+}
+
+
 function clear_item_data() {
     food_data = null;
     rtde_data = null;
@@ -42,17 +52,9 @@ function load_item_data() {
     load_food();
     load_rtde()
 }
+//
 
-function set_partner_name() {
-    const stored_partner = localStorage.getItem(current_drawer);
-    if (stored_partner) {
-        const partner = JSON.parse(stored_partner);
-        const name_field = document.getElementById('name_field');
-        name_field.textContent = partner.name;
-    }
-}
-
-
+//ADD LISTENER TO CAM BUTTON
 cam_switch.addEventListener('click', () => {
     switch (cam_power) {
         case true:
@@ -68,7 +70,7 @@ cam_switch.addEventListener('click', () => {
     }
 });
 
-
+//DISPLAY CAMERA FEED
 function start_camera() {
     const video_tag = document.createElement('video');
     video_tag.id = 'vid'
@@ -91,18 +93,20 @@ function start_camera() {
     cam_feed_div.appendChild(video_tag);
 }
 
+//STOP CAMERA FEED
 function stop_camera() {
     cam_feed_div.innerHTML = '';
     cam_power = false;
 }
 
 
+//FETCH AND STORE FOOD DATA IN VARIABLE
 async function load_food() {
     try {
         const response = await fetch('/data/food');
         const data = await response.json();
         food_data = data;
-        return data;
+
 
     } catch (error) {
         console.error(error);
@@ -111,12 +115,13 @@ async function load_food() {
 
 };
 
+//FETCH AND STORE RTDE DATA IN VARIABLE
 async function load_rtde() {
     try {
         const response = await fetch('/data/rtde');
         const data = await response.json();
         rtde_data = data;
-        return data;
+
 
     } catch (error) {
         console.error(error);
@@ -124,12 +129,13 @@ async function load_rtde() {
     }
 };
 
+//FETCH AND STORE BEAN DATA IN VARIABLE
 async function load_beans() {
     try {
         const response = await fetch('/data/beans');
         const data = await response.json()
         beans_data = data;
-        return data;
+
 
     } catch (error) {
         console.error(error);
@@ -138,12 +144,13 @@ async function load_beans() {
 
 };
 
+//FETCH AND STORE DRINK DATA IN VARIABLE
 async function load_drinks() {
     try {
         const response = await fetch('/data/drinks');
         const data = await response.json();
         drink_data = data;
-        return data;
+
 
     } catch (error) {
         console.error(error);
@@ -151,7 +158,7 @@ async function load_drinks() {
     }
 };
 
-
+// ADD LISTENER TO EACH CATEGORY BUTTON TO RENDER NECESSARY CATEGORY WHEN CLICKED
 category_btns.forEach(btn => {
     const name = btn.value;
     btn.addEventListener('click', async function () {
@@ -1675,33 +1682,218 @@ tender_btns.forEach(btn => {
             case "functions":
                 items_div.innerHTML = '';
 
-                const functions_div = document.createElement('div');
-                functions_div.id = 'functions_div';
+                const function_btn_div = document.createElement('div');
+                function_btn_div.id = 'function_btn_div';
 
-                const unassign_drawer_btn = document.createElement('button');
-                unassign_drawer_btn.textContent = 'Unassign Drawer';
-                unassign_drawer_btn.id = 'unassign_drawer_btn';
-                functions_div.appendChild(unassign_drawer_btn);
+                const orders_div = document.createElement('div');
+                orders_div.id = 'orders_div';
 
-                unassign_drawer_btn.addEventListener('click', async function () {
-                    const response = await fetch(`/session`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            'drawer': sessionStorage.getItem('current_drawer')
-                        })
+                const order_label = document.createElement('span');
+                order_label.className = 'div_label';
+                order_label.textContent = 'Orders';
+
+                const order_btns_div = document.createElement('div');
+                order_btns_div.id = 'order_btns_div';
+
+                const order_btns = [
+                    { label: 'Print Last Reciept' },
+                    { label: 'Refund Mode' },
+                    { label: 'Change Price' },
+                    { label: 'No Tax' },
+                    { label: 'Drive Thru Mobile Order' },
+                    { label: 'No Cup Fee' }
+                ];
+
+                order_btns.forEach(btn => {
+                    const order_btn = document.createElement('button');
+                    order_btn.className = 'order_btn';
+                    order_btn.textContent = btn.label;
+                    order_btns_div.appendChild(order_btn);
+
+                    order_btn.addEventListener('click', () => {
+                        const name = order_btn.textContent;
+                        switch (name) {
+                            case 'Print Last Reciept':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Refund Mode':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Change Price':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'No Tax':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Drive Thru Mobile Order':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'No Cup Fee':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            default:
+                                break
+                        }
                     });
-                    const data = await response.json();
-                    if (data.success) {
-                        localStorage.removeItem(current_drawer);
-                        sessionStorage.clear();
-                        window.location.replace('/');
-                    }
                 });
 
-                items_div.appendChild(functions_div);
+                orders_div.appendChild(order_label);
+                orders_div.appendChild(order_btns_div);
+
+
+                const cash_div = document.createElement('div');
+                cash_div.id = 'cash_div';
+
+                const cash_label = document.createElement('span');
+                cash_label.className = 'div_label';
+                cash_label.textContent = 'Cash';
+
+                const drawer_func_div = document.createElement('div');
+                drawer_func_div.id = 'drawer_func_div';
+                const drawer_func_btns = [
+                    { label: 'Assign Cash Drawer' },
+                    { label: 'Un-Assign Cash Drawer' }
+                ];
+                drawer_func_btns.forEach(btn => {
+                    const drawer_btn = document.createElement('button');
+                    drawer_btn.className = 'drawer_btn';
+                    drawer_btn.textContent = btn.label;
+                    drawer_func_div.appendChild(drawer_btn);
+
+                    drawer_btn.addEventListener('click', async function () {
+                        const name = drawer_btn.textContent;
+
+                        switch (name) {
+                            case 'Assign Cash Drawer':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Un-Assign Cash Drawer':
+                                const response = await fetch(`/session`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        'drawer': sessionStorage.getItem('current_drawer')
+                                    })
+                                });
+                                const data = await response.json();
+                                if (data.success) {
+                                    localStorage.removeItem(current_drawer);
+                                    sessionStorage.clear();
+                                    window.location.replace('/');
+                                }
+                                break
+
+                            default:
+                                break
+                        }
+                    });
+                });
+
+                const other_func_div = document.createElement('div');
+                other_func_div.id = 'other_func_div';
+
+                const other_func_btns = [
+                    { label: 'Paid In' },
+                    { label: 'Paid Out' },
+                    { label: 'Starbucks Card Cash Back' }
+                ];
+
+                other_func_btns.forEach(btn => {
+                    const other_func_btn = document.createElement('button');
+                    other_func_btn.className = 'other_func_btn';
+                    other_func_btn.textContent = btn.label;
+                    other_func_div.appendChild(other_func_btn);
+
+                    other_func_btn.addEventListener('click', () => {
+                        const name = other_func_btn.textContent;
+                        switch (name) {
+                            case 'Paid In':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Paid Out':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Starbucks Card Cash Back':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            default:
+                                break
+                        }
+                    });
+                });
+
+                cash_div.appendChild(cash_label);
+                cash_div.appendChild(drawer_func_div);
+                cash_div.appendChild(other_func_div);
+
+                const reports_div = document.createElement('div');
+                reports_div.id = 'reports_div';
+
+                const reports_label = document.createElement('span');
+                reports_label.className = 'div_label';
+                reports_label.textContent = 'Reports';
+
+                const report_btns_div = document.createElement('div');
+                report_btns_div.id = 'report_btns_div';
+
+                const reports_btns = [
+                    { label: 'Custom Reports' },
+                    { label: 'PMC' },
+                    { label: 'Markouts' },
+                    { label: 'Label Routing Dashboard (SPC)' }
+                ];
+                reports_btns.forEach(btn => {
+                    const report_btn = document.createElement('button');
+                    report_btn.className = 'report_btn';
+                    report_btn.textContent = btn.label;
+                    report_btns_div.appendChild(report_btn);
+
+                    report_btn.addEventListener('click', () => {
+                        const name = report_btn.textContent;
+                        switch (name) {
+                            case 'Customer Rpeorts':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'PMC':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Markouts':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            case 'Label Routing Dashboard (SPC)':
+                                console.log(`${name} btn clicked`);
+                                break
+
+                            default:
+                                break
+                        }
+                    });
+                });
+
+                reports_div.appendChild(reports_label);
+                reports_div.appendChild(report_btns_div);
+
+
+                function_btn_div.appendChild(orders_div);
+                function_btn_div.appendChild(cash_div);
+                function_btn_div.appendChild(reports_div);
+
+                items_div.appendChild(function_btn_div);
 
                 break;
             case "tender":
