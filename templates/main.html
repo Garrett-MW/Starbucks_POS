@@ -46,7 +46,7 @@
                         <button class="func_btn" value="discount">Discount</button>
                     </div>
                     <div id="functions_div2">
-                        <button class="func_btn" value="logout"><i class="fas fa-clock" style="color: black; height: 20px; width: 20px;"></i></button>
+                        <button class="func_btn" value="logout">&#8592; Go Back</button>
                         <button class="func_btn" id="cancel_btn" value="cancel">Cancel</button>
                         <button class="func_btn" value="togo">To Go Order</button>
                         <button class="func_btn"  id="save_order" value="save">Save Order</button>
@@ -118,11 +118,32 @@
                 </div>
             </div>
         
-            <div id="customers_items" style="text-align: center; line-height: 50px;">Add Item List</div>
+            <div id="customers_items" style="text-align: center; line-height: 50px;"></div>
         
             </div>
 
+            <div id="pop_up_container" hidden>
+                <div id="item_quan_page">
+                    <h1>INPUT QUANTITY <span id="exit">x</span></h1>
+                    <div id="quan_input_div">
+                        <input type="text" name="item_quan" id="item_quan">
+                    </div>
+                    <div id="pin_pad_div">
+                        <button class="pin_pad" value="1">1</button>
+                        <button class="pin_pad" value="2">2</button>
+                        <button class="pin_pad" value="3">3</button>
+                        <button class="pin_pad" value="4">4</button>
+                        <button class="pin_pad" value="5">5</button>
+                        <button class="pin_pad" value="6">6</button>
+                        <button class="pin_pad" value="7">7</button>
+                        <button class="pin_pad" value="8">8</button>
+                        <button class="pin_pad" value="9">9</button>
+                        <button class="pin_pad" id="quan_clear_btn">Clear</button>
+                        <button class="pin_pad" value="0">0</button>
+                        <button class="pin_pad" id="quan_enter_btn" type="clear">Enter</button>
+                    </div>
+                </div>
+
     </div>
-    <script src="https://kit.fontawesome.com/3d58ae73e7.js" crossorigin="anonymous"></script>
 </body>
 </html>

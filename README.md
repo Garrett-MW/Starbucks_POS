@@ -60,8 +60,6 @@ While it does not interface with actual hardware or process real transactions, i
 - Use the payment section to simulate completing the transaction.
 - View and print the receipt after finalizing the order.
 
----
-
 ## 🧱 Technologies Used
 
 - **Backend**: Python

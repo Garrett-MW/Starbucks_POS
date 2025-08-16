@@ -7,10 +7,20 @@ const category_btns = document.querySelectorAll('.category_btn');
 const bev_type = document.getElementById('bev_type');
 const cam_feed_div = document.getElementById('camera_feed');
 const cam_switch = document.getElementById('cam_switch');
+const tender_items = document.getElementById('tender_items');
+const quantity_pop_up = document.getElementById('pop_up_container');
+const quan_enter_btn = document.getElementById('quan_enter_btn');
+const quan_clear_btn = document.getElementById('quan_clear_btn');
+const item_quan_exit = document.getElementById('exit');
+const customers_items = document.getElementById('customers_items');
+
+let current_item = '';
 
 let current_drawer = sessionStorage.getItem('current_drawer');
 
 let cam_power = false;
+
+let quantity_value = 1;
 
 let food_data = null;
 let rtde_data = null;
@@ -23,6 +33,7 @@ window.addEventListener('pageshow', () => {
     load_item_data();
 
     set_partner_name();
+    start_new_order();
 
     const drink_btn = document.getElementById('drink_btn');
     drink_btn.click();
@@ -204,7 +215,10 @@ category_btns.forEach(btn => {
                                     pastry_btn.value = pastry.price;
 
                                     pastry_btn.addEventListener('click', () => {
-                                        console.log(`${pastry_btn.textContent} btn clicked`);
+
+                                        console.log(pastry);
+                                        add_item_to_order(pastry);
+
                                     });
 
                                     pastries_div.appendChild(pastry_btn);
@@ -237,7 +251,12 @@ category_btns.forEach(btn => {
                                     loaf_btn.value = loaf.price;
 
                                     loaf_btn.addEventListener('click', () => {
-                                        console.log(`${loaf_btn.textContent} btn clicked`)
+
+
+                                        console.log(loaf);
+                                        add_item_to_order(loaf);
+
+
                                     });
 
                                     loaves_div.appendChild(loaf_btn);
@@ -269,7 +288,10 @@ category_btns.forEach(btn => {
                                     croissant_btn.value = croissant.price;
 
                                     croissant_btn.addEventListener('click', () => {
-                                        console.log(`${croissant_btn.textContent} btn clicked`)
+
+                                        console.log(croissant);
+                                        add_item_to_order(croissant);
+
                                     });
 
                                     croissants_div.appendChild(croissant_btn);
@@ -301,7 +323,10 @@ category_btns.forEach(btn => {
                                     lunch_btn.value = item.price;
 
                                     lunch_btn.addEventListener('click', () => {
-                                        console.log(`${lunch_btn.textContent} btn clicked`)
+
+                                        console.log(item);
+                                        add_item_to_order(item);
+
                                     });
 
                                     lunch_div.appendChild(lunch_btn);
@@ -333,7 +358,10 @@ category_btns.forEach(btn => {
                                     brownie_btn.value = brownie.price;
 
                                     brownie_btn.addEventListener('click', () => {
-                                        console.log(`${brownie_btn.textContent} btn clicked`)
+
+                                        console.log(brownie);
+                                        add_item_to_order(brownie);
+
                                     });
 
                                     brownies_div.appendChild(brownie_btn);
@@ -365,7 +393,10 @@ category_btns.forEach(btn => {
                                     breakfast_btn.value = item.price;
 
                                     breakfast_btn.addEventListener('click', () => {
-                                        console.log(`${breakfast_btn.textContent} btn clicked`)
+
+                                        console.log(item);
+                                        add_item_to_order(item);
+
                                     });
 
                                     breakfast_div.appendChild(breakfast_btn);
@@ -428,7 +459,10 @@ category_btns.forEach(btn => {
                                     juice_btn.value = juice.price;
 
                                     juice_btn.addEventListener('click', () => {
-                                        console.log(`${juice_btn.textContent} btn clicked`);
+
+                                        console.log(juice);
+                                        add_item_to_order(juice);
+
                                     });
 
                                     juice_div.appendChild(juice_btn)
@@ -460,7 +494,10 @@ category_btns.forEach(btn => {
                                     soda_btn.value = soda.price;
 
                                     soda_btn.addEventListener('click', () => {
-                                        console.log(`${soda_btn.textContent} btn clicked`);
+
+                                        console.log(soda);
+                                        add_item_to_order(soda);
+
                                     });
 
                                     soda_div.appendChild(soda_btn)
@@ -491,7 +528,10 @@ category_btns.forEach(btn => {
                                     impulse_btn.value = impulse.price;
 
                                     impulse_btn.addEventListener('click', () => {
-                                        console.log(`${impulse_btn.textContent} btn clicked`);
+
+                                        console.log(impulse);
+                                        add_item_to_order(impulse);
+
                                     });
 
                                     impulse_div.appendChild(impulse_btn);
@@ -838,7 +878,7 @@ category_btns.forEach(btn => {
                                     core_btn.textContent = bean.item_name;
                                     core_btn.value = bean.price;
                                     core_btn.addEventListener('click', () => {
-                                        console.log(`${core_btn.textContent} btn clicked`)
+                                        add_item_to_order(bean);
                                     });
                                     core_div.appendChild(core_btn);
                                 });
@@ -1111,7 +1151,7 @@ category_btns.forEach(btn => {
                                     syrup_choices_div.appendChild(syrup_btn);
 
                                     syrup_btn.addEventListener('click', () => {
-                                        console.log(`${syrup_btn.label} btn clicked`)
+                                        add_mod_to_item(syrup_btn.textContent);
                                     });
 
                                 });
@@ -1133,7 +1173,7 @@ category_btns.forEach(btn => {
                                     sauce_choices_div.appendChild(sauce_btn);
 
                                     sauce_btn.addEventListener('click', () => {
-                                        console.log(`${sauce.label} btn clicked`)
+                                        add_mod_to_item(sauce_btn.textContent);
                                     });
                                 });
 
@@ -1151,7 +1191,7 @@ category_btns.forEach(btn => {
                                     seasonal_options_div.appendChild(option_btn);
 
                                     option_btn.addEventListener('click', () => {
-                                        console.log(`${option.label} btn clicked`);
+                                        add_mod_to_item(option_btn.textContent);
                                     });
 
                                 });
@@ -1217,7 +1257,7 @@ category_btns.forEach(btn => {
                                     milk_btn.value = milk.value;
 
                                     milk_btn.addEventListener('click', () => {
-                                        console.log(`${milk.label} btn clicked`)
+                                        add_mod_to_item(milk_btn.textContent)
                                     });
 
                                     replace_milk_div.appendChild(milk_btn);
@@ -1269,7 +1309,7 @@ category_btns.forEach(btn => {
                                     splash_milk_btn.value = milk.value;
 
                                     splash_milk_btn.addEventListener('click', () => {
-                                        console.log(`Splash ${milk.label} btn clicked`)
+                                        add_mod_to_item(splash_milk_btn.textContent);
                                     });
 
                                     splash_milk_div.appendChild(splash_milk_btn);
@@ -1385,7 +1425,7 @@ category_btns.forEach(btn => {
                                                         cf_btn.textContent = cf.label;
 
                                                         cf_btn.addEventListener('click', () => {
-                                                            console.log(`${cf_btn.textContent} btn clicked`);
+                                                            add_mod_to_item(cf_btn.textContent);
                                                         });
 
                                                         cf_div.appendChild(cf_btn);
@@ -1399,7 +1439,7 @@ category_btns.forEach(btn => {
 
                                             default:
                                                 custom_btn.addEventListener('click', () => {
-                                                    console.log(`${custom.label} Button Clicked`);
+                                                    add_mod_to_item(custom.label);
                                                 });
                                                 break;
                                         }
@@ -1411,7 +1451,7 @@ category_btns.forEach(btn => {
                                 extra_custom.id = 'extra_custom';
 
                                 const extra_customs = [
-                                    { label: 'with Room' },
+                                    { label: 'With Room' },
                                     { label: 'Extra Hot' },
                                     { label: 'Personal Cup' },
                                     { label: 'For Here Cup' },
@@ -1460,7 +1500,7 @@ category_btns.forEach(btn => {
                                                 ]
 
                                                 const extra_top_div = document.createElement('div');
-                                                extra_top_div.className = drink_div;
+                                                extra_top_div.className = 'drink_div';
 
                                                 extra_toppings.forEach(topping => {
                                                     const topping_btn = document.createElement('button');
@@ -1468,7 +1508,7 @@ category_btns.forEach(btn => {
                                                     topping_btn.textContent = topping.label;
 
                                                     topping_btn.addEventListener('click', () => {
-                                                        console.log(`${topping_btn.textContent} btn clicked`);
+                                                        add_mod_to_item(topping_btn.textContent);
                                                     });
 
                                                     extra_top_div.appendChild(topping_btn);
@@ -1481,7 +1521,7 @@ category_btns.forEach(btn => {
 
                                         default:
                                             extra_custom_btn.addEventListener('click', () => {
-                                                console.log(`${extra.label} btn clicked`);
+                                                add_mod_to_item(extra_custom_btn.textContent);
                                             });
                                             break;
                                     }
@@ -1537,7 +1577,9 @@ category_btns.forEach(btn => {
                                     brewed_btn.value = drink.price;
 
                                     brewed_btn.addEventListener('click', () => {
-                                        console.log(`${brewed_btn.textContent} btn clicked`);
+                                        const new_drink = start_new_drink(drink);
+                                        add_item_to_order(new_drink);
+                                        current_item = new_drink;
                                     });
 
                                     brewed_div.appendChild(brewed_btn);
@@ -1562,7 +1604,9 @@ category_btns.forEach(btn => {
                                     espresso_btn.value = drink.price;
 
                                     espresso_btn.addEventListener('click', () => {
-                                        console.log(`${espresso_btn.textContent} btn clicked`);
+                                        const new_drink = start_new_drink(drink)
+                                        add_item_to_order(new_drink);
+                                        current_item = new_drink;
                                     });
 
                                     espresso_div.appendChild(espresso_btn);
@@ -1587,7 +1631,9 @@ category_btns.forEach(btn => {
                                     blended_btn.value = drink.price;
 
                                     blended_btn.addEventListener('click', () => {
-                                        console.log(`${blended_btn.textContent} btn clicked`);
+                                        const new_drink = start_new_drink(drink);
+                                        add_item_to_order(new_drink);
+                                        current_item = new_drink;
                                     });
 
                                     blended_div.appendChild(blended_btn);
@@ -1612,7 +1658,9 @@ category_btns.forEach(btn => {
                                     tea_btn.value = drink.price;
 
                                     tea_btn.addEventListener('click', () => {
-                                        console.log(`${tea_btn.textContent} btn clicked`);
+                                        const new_drink = start_new_drink(drink);
+                                        add_item_to_order(new_drink);
+                                        current_item = new_drink;
                                     });
 
                                     tea_div.appendChild(tea_btn);
@@ -1637,7 +1685,9 @@ category_btns.forEach(btn => {
                                     other_btn.value = drink.price;
 
                                     other_btn.addEventListener('click', () => {
-                                        console.log(`${other_btn.textContent} btn clicked`);
+                                        const new_drink = start_new_drink(drink);
+                                        add_item_to_order(new_drink);
+                                        current_item = new_drink;
                                     });
 
                                     other_div.appendChild(other_btn);
@@ -1920,9 +1970,14 @@ checkout_btns.forEach(btn => {
     btn.addEventListener('click', () => {
         switch (name) {
             case "quantity":
-                // INSERT BUTTON LOGIC
-                //DISPLAY POPUP WITH PINPAD FOR SETTING QUANTITY OF SYRPUP/POWDER/SUGAR
-                console.log('Quantity btn clicked');
+                quantity_pop_up.hidden = false;
+                const pin_pad_btns = document.querySelectorAll('.pin_pad');
+                const item_quan = document.getElementById('item_quan');
+                pin_pad_btns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        item_quan.value += btn.value;
+                    });
+                });
                 break;
             case "customer":
                 // INSERT BUTTON LOGIC
@@ -1962,9 +2017,7 @@ func_btns.forEach(btn => {
                 window.location.replace('/');
                 break;
             case "cancel":
-                //CANCEL ENTIRE ORDER
-                // INSERT BUTTON LOGIC
-                console.log('cancel btn clicked');
+                clear_tender_items();
                 break;
             case "togo":
                 //SET ORDER AS TO GO
@@ -2023,6 +2076,71 @@ addit_btns.forEach(btn => {
         }
     });
 });
+
+function add_mod_to_item(mod) {
+    const current_item_mods = current_item.modifications;
+    current_item_mods.push(mod);
+    console.log(current_item_mods);
+
+    const new_mod = document.createElement('li');
+    new_mod.className = 'new_mod';
+    new_mod.textContent = mod;
+}
+
+function start_new_drink(drink) {
+    const new_drink = {
+        abrev: drink['abrev'],
+        available: drink['available'],
+        category: drink['category'],
+        item_name: drink['item_name'],
+        modifications: drink['modifications'],
+        price: drink['price']['g']
+    };
+    return new_drink
+}
+
+quan_clear_btn.addEventListener('click', () => {
+    item_quan.innerHTML = 0;
+});
+
+quan_enter_btn.addEventListener('click', () => {
+    quantity_value = item_quan.value;
+    pop_up_container.hidden = true;
+});
+
+item_quan_exit.addEventListener('click', () => {
+    pop_up_container.hidden = true;
+});
+
+function start_new_order() {
+    const item_list = document.createElement('ul');
+    item_list.id = 'item_list';
+    tender_items.appendChild(item_list);
+    customers_items.appendChild(item_list);
+};
+
+function clear_tender_items() {
+    quantity_value = 1;
+    tender_items.innerHTML = '';
+    customers_items.innerHTML = '';
+    start_new_order();
+};
+
+
+function add_item_to_order(item) { //need to fix to add mods to items
+    console.log('add item accessed')
+    const new_item = document.createElement('li');
+    new_item.className = 'item';
+    new_item.textContent = `${quantity_value} ${item['item_name']} $${item['price']} `;
+    const mod_list = document.createElement('ul');
+    mod_list.className = 'mod_list';
+    new_item.appendChild(mod_list);
+    tender_items.appendChild(new_item);
+    const item_clone = new_item.cloneNode(true);
+    customers_items.appendChild(item_clone);
+    quantity_value = 1;
+    current_item = new_item;
+};
 
 
 item_type_div.addEventListener('click', (e) => {
