@@ -4,7 +4,7 @@ import os #import for paths
 
 def set_app_config(app): # methods sets config of app object passed 
     load_dotenv() #read .env data
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') # sets encryption key for app
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or "SeCrEt_KeY"; # sets encryption key for app
     app.config['DEBUG'] = True
     app.config['HOST'] = '0.0.0.0'
     

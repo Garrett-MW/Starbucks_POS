@@ -9,7 +9,7 @@ class DB:
         
         try:
             load_dotenv()
-            url = os.getenv('DB_URL')
+            url = 'mongodb+srv://Cluster49758:cpGZ1xeck1EIQMbA@cluster49758.fu3djlb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster49758'
             client = MongoClient(
                 url, 
                 tls=True,
