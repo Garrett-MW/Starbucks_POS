@@ -1,6 +1,7 @@
 'use strict'
 //  MAIN.HTML
 
+// const variables
 const item_search_div = document.querySelector('#item_search_div');
 const item_type_div = document.querySelector('#item_type_div');
 const category_btns = document.querySelectorAll('.category_btn');
@@ -13,33 +14,33 @@ const quan_enter_btn = document.getElementById('quan_enter_btn');
 const quan_clear_btn = document.getElementById('quan_clear_btn');
 const item_quan_exit = document.getElementById('exit');
 const customers_items = document.getElementById('customers_items');
+const order_items = document.getElementById('order_items');
+const item_list = document.getElementById('item_list');
+const drink_btn = document.getElementById('drink_btn');
 
+//let variables (changing variables)
+let item_count = 0;
 let current_item = '';
-
 let current_drawer = sessionStorage.getItem('current_drawer');
-
 let cam_power = false;
-
 let quantity_value = 1;
-
 let food_data = null;
 let rtde_data = null;
 let drink_data = null;
 let beans_data = null;
 
+//when window is shown fetch necessary data and set partner name
 window.addEventListener('pageshow', () => {
 
     clear_item_data();
     load_item_data();
 
     set_partner_name();
-    start_new_order();
 
-    const drink_btn = document.getElementById('drink_btn');
     drink_btn.click();
 
 });
-
+//sets partner name above item_list with the parter that is in session
 function set_partner_name() {
     const stored_partner = localStorage.getItem(current_drawer);
     if (stored_partner) {
@@ -49,31 +50,31 @@ function set_partner_name() {
     }
 }
 
-
+//clears item data variables so the data isn't multiplied
 function clear_item_data() {
     food_data = null;
     rtde_data = null;
     drink_data = null;
     beans_data = null;
 }
-
+//loads all data from backend and stores data into data variables for respective cateogory 
 function load_item_data() {
     load_drinks();
     load_beans();
     load_food();
-    load_rtde()
+    load_rtde();
 }
-//
+
 
 //ADD LISTENER TO CAM BUTTON
 cam_switch.addEventListener('click', () => {
     switch (cam_power) {
         case true:
-            stop_camera()
-            break
+            stop_camera();
+            break;
 
         case false:
-            start_camera()
+            start_camera();
             break;
 
         default:
@@ -84,7 +85,7 @@ cam_switch.addEventListener('click', () => {
 //DISPLAY CAMERA FEED
 function start_camera() {
     const video_tag = document.createElement('video');
-    video_tag.id = 'vid'
+    video_tag.id = 'vid';
 
     const camera = navigator.mediaDevices;
 
@@ -144,7 +145,7 @@ async function load_rtde() {
 async function load_beans() {
     try {
         const response = await fetch('/data/beans');
-        const data = await response.json()
+        const data = await response.json();
         beans_data = data;
 
 
@@ -388,7 +389,7 @@ category_btns.forEach(btn => {
                                 breakfast_data.forEach(item => {
 
                                     const breakfast_btn = document.createElement('button');
-                                    breakfast_btn.className = 'food_btn'
+                                    breakfast_btn.className = 'food_btn';
                                     breakfast_btn.textContent = item.item_name;
                                     breakfast_btn.value = item.price;
 
@@ -465,7 +466,7 @@ category_btns.forEach(btn => {
 
                                     });
 
-                                    juice_div.appendChild(juice_btn)
+                                    juice_div.appendChild(juice_btn);
                                 });
 
                                 const juice_label = document.createElement('span');
@@ -500,7 +501,7 @@ category_btns.forEach(btn => {
 
                                     });
 
-                                    soda_div.appendChild(soda_btn)
+                                    soda_div.appendChild(soda_btn);
                                 });
 
                                 const soda_label = document.createElement('span');
@@ -700,7 +701,7 @@ category_btns.forEach(btn => {
 
                             case "bulk":
 
-                                items_div.innerHTML = ' '
+                                items_div.innerHTML = ' ';
 
                                 const bulk_div = document.createElement('div');
                                 bulk_div.id = 'bulk_div';
@@ -790,7 +791,7 @@ category_btns.forEach(btn => {
                                     donations_row1_btn.className = 'donations_btn';
                                     donations_row1_btn.value = btn.value;
                                     donations_row1_btn.textContent = btn.label;
-                                    donations_row1.appendChild(donations_row1_btn)
+                                    donations_row1.appendChild(donations_row1_btn);
 
                                     donations_row1_btn.addEventListener('click', () => {
                                         console.log(`${donations_row1_btn.textContent} btn clicked`);
@@ -827,13 +828,13 @@ category_btns.forEach(btn => {
 
 
                             case "test":
-                                items_div.innerHTML = ''
-                                console.log('Test Btn Clicked (no content to display)')
+                                items_div.innerHTML = '';
+                                console.log('Test Btn Clicked (no content to display)');
                                 break;
 
 
                             default:
-                                break
+                                break;
 
                         }
                     });
@@ -962,7 +963,7 @@ category_btns.forEach(btn => {
                             { value: 'Decaf' },
                             { value: 'Shots' },
                             { value: 'Size' }
-                        ]
+                        ];
                         shot_div_labels.forEach(label => {
                             if (label.value == 'Iced') {
                                 const iced_div = document.createElement('div');
@@ -1007,7 +1008,7 @@ category_btns.forEach(btn => {
                         btn_div.appendChild(btn_label);
                         btn_div.appendChild(btn_square);
 
-                        drink_btn.appendChild(btn_div)
+                        drink_btn.appendChild(btn_div);
                     }
 
                     drink_btn.addEventListener('click', async function () {
@@ -1108,7 +1109,6 @@ category_btns.forEach(btn => {
                                                 console.log('sub syrup btn clicked');
                                                 break;
 
-
                                             case "extra":
                                                 console.log('extra btn clicked');
                                                 break;
@@ -1139,7 +1139,6 @@ category_btns.forEach(btn => {
                                     { value: 'chai', label: 'Chai' },
                                     { value: 'honeyBlend', label: 'Honey Blend' },
                                     { value: 'sfVanilla', label: 'Sugar Free Vanilla Syrup' },
-
                                 ];
 
                                 syrup_choices.forEach(syrup => {
@@ -1193,7 +1192,6 @@ category_btns.forEach(btn => {
                                     option_btn.addEventListener('click', () => {
                                         add_mod_to_item(option_btn.textContent);
                                     });
-
                                 });
 
                                 const syrup_label = document.createElement('span');
@@ -1257,7 +1255,7 @@ category_btns.forEach(btn => {
                                     milk_btn.value = milk.value;
 
                                     milk_btn.addEventListener('click', () => {
-                                        add_mod_to_item(milk_btn.textContent)
+                                        add_mod_to_item(milk_btn.textContent);
                                     });
 
                                     replace_milk_div.appendChild(milk_btn);
@@ -1284,11 +1282,11 @@ category_btns.forEach(btn => {
                                         const name = mod_btn.label;
                                         switch (name) {
                                             case 'Light':
-                                                console.log(`${name} btn clicked`)
+                                                console.log(`${name} btn clicked`);
                                                 break;
 
                                             case 'Extra':
-                                                console.log(`${name} btn clicked`)
+                                                console.log(`${name} btn clicked`);
                                                 break;
 
                                             default:
@@ -1320,7 +1318,7 @@ category_btns.forEach(btn => {
                                 splash_milk_label.className = 'div_label';
 
                                 const replace_milk_label = document.createElement('span');
-                                replace_milk_label.textContent = 'Substitute'
+                                replace_milk_label.textContent = 'Substitute';
                                 replace_milk_label.className = 'div_label';
 
                                 splash_milk.appendChild(splash_milk_label);
@@ -1411,10 +1409,10 @@ category_btns.forEach(btn => {
                                             case 'Cold Foams':
                                                 custom_btn.addEventListener('click', () => {
 
-                                                    items_div.innerHTML = ''
+                                                    items_div.innerHTML = '';
                                                     const cold_foams = [
                                                         { label: 'Vanilla Sweet Cream Cold Foam' }
-                                                    ]
+                                                    ];
 
                                                     const cf_div = document.createElement('div');
                                                     cf_div.className = 'drink_div';
@@ -1497,7 +1495,7 @@ category_btns.forEach(btn => {
                                                     { label: 'Caramel Sugar Topping' },
                                                     { label: 'Cherry Crunch Topping' },
                                                     { label: 'No Topping' }
-                                                ]
+                                                ];
 
                                                 const extra_top_div = document.createElement('div');
                                                 extra_top_div.className = 'drink_div';
@@ -1532,7 +1530,7 @@ category_btns.forEach(btn => {
                                 custom_container.appendChild(custom_div);
                                 custom_container.appendChild(extra_custom);
 
-                                items_div.appendChild(custom_container)
+                                items_div.appendChild(custom_container);
                                 break;
 
 
@@ -1552,7 +1550,7 @@ category_btns.forEach(btn => {
                     { value: 'blended', label: 'Blended' },
                     { value: 'tea', label: 'Tea' },
                     { value: 'other', label: 'Other' }
-                ]
+                ];
                 bev_type_btns.forEach(btn => {
                     const bev_type_btn = document.createElement('button');
                     bev_type_btn.className = 'bev_type_btn';
@@ -1604,7 +1602,7 @@ category_btns.forEach(btn => {
                                     espresso_btn.value = drink.price;
 
                                     espresso_btn.addEventListener('click', () => {
-                                        const new_drink = start_new_drink(drink)
+                                        const new_drink = start_new_drink(drink);
                                         add_item_to_order(new_drink);
                                         current_item = new_drink;
                                     });
@@ -1719,7 +1717,7 @@ function setFirstItemTypeToClick(value) {
     setTimeout(() => {
         const btn = document.querySelector(`.item_type[value="${value}"]`);
         if (btn) btn.click();
-    }, 50); // give more breathing room
+    }, 50);
 }
 
 
@@ -1765,30 +1763,30 @@ tender_btns.forEach(btn => {
                         switch (name) {
                             case 'Print Last Reciept':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'Refund Mode':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'Change Price':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'No Tax':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'Drive Thru Mobile Order':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'No Cup Fee':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             default:
-                                break
+                                break;
                         }
                     });
                 });
@@ -1822,7 +1820,7 @@ tender_btns.forEach(btn => {
                         switch (name) {
                             case 'Assign Cash Drawer':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'Un-Assign Cash Drawer':
                                 const response = await fetch(`/session`, {
@@ -1915,22 +1913,22 @@ tender_btns.forEach(btn => {
                         switch (name) {
                             case 'Customer Rpeorts':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'PMC':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'Markouts':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             case 'Label Routing Dashboard (SPC)':
                                 console.log(`${name} btn clicked`);
-                                break
+                                break;
 
                             default:
-                                break
+                                break;
                         }
                     });
                 });
@@ -1947,13 +1945,9 @@ tender_btns.forEach(btn => {
 
                 break;
             case "tender":
-                // INSERT BUTTON LOGIC
-                //OPEN PAYMENT SCREEN WITH PINPAD FOR CASH 
                 console.log("tender btn clicked");
                 break;
             case "order":
-                // INSERT BUTTON LOGIC
-                //DISPLAY MAIN.HTML WITH CURRENT ITEMS IN THE CART IF ANY
                 console.log('order btn clicked');
                 break;
 
@@ -1980,8 +1974,6 @@ checkout_btns.forEach(btn => {
                 });
                 break;
             case "customer":
-                // INSERT BUTTON LOGIC
-                //SET CUSTOMER NAME OF THE ORDER
                 console.log('Customer name btn clicked');
                 break;
 
@@ -1998,37 +1990,43 @@ func_btns.forEach(btn => {
     btn.addEventListener('click', () => {
         switch (name) {
             case "void":
-                //REMOVE ITEM OR MODIFICATION THAT IS SELECTED
-                // INSERT BUTTON LOGIC
-                console.log('void btn clicked');
+                if (current_item) {
+                    const itemId = current_item.dataset.itemId;
+                    order_items.removeChild(current_item);
+                    const pairedItem = item_list.querySelector(`[data-item-id="${itemId}"]`);
+                    if (pairedItem) {
+                        item_list.removeChild(pairedItem);
+                    }
+                    item_count--;
+                    current_item = null;
+                }
                 break;
+
             case "here":
-                //SET ORDER AS FOR HERE
-                // INSERT BUTTON LOGIC
                 console.log('here btn clicked');
                 break;
+
             case "discount":
-                //DISPLAY MENU FOR DISCOUNT OPTIONS
-                // INSERT BUTTON LOGIC
                 console.log('discount btn clicked');
                 break;
+
             case 'logout':
                 sessionStorage.clear()
                 window.location.replace('/');
                 break;
+
             case "cancel":
                 clear_tender_items();
                 break;
+
             case "togo":
-                //SET ORDER AS TO GO
-                // INSERT BUTTON LOGIC
                 console.log('togo btn clicked');
                 break;
+
             case "save":
-                //SAVE ORDER AND CLEAR ORDER LIST OF ITEMS ALSO CHANGES TO FIND BTN AFTER SAVE IS DONE
-                // INSERT BUTTON LOGIC
                 console.log('save btn clicked');
                 break;
+
             default:
                 break
         }
@@ -2042,49 +2040,55 @@ addit_btns.forEach(btn => {
     btn.addEventListener('click', () => {
         switch (name) {
             case "avalability":
-                //SET QUANITITY OF ITEMS TO 0 SO ITEM CANNOT BE ORDERED
-                // INSERT BUTTON LOGIC
                 console.log('avalability btn clicked');
                 break;
+
             case "sku":
-                //SEARCH ITEM BY SKU
-                // INSERT BUTTON LOGIC
                 console.log('sku btn clicked');
                 break;
+
             case "price":
-                //FIND PRICE OF ITEM ( IDK DONT HAVE A SCANNER)
-                // INSERT BUTTON LOGIC
                 console.log('price btn clicked');
                 break;
+
             case "search":
-                //SEARCH ITEM BY NAME
-                // INSERT BUTTON LOGIC
                 console.log('search btn clicked');
                 break;
+
             case "askme":
-                //ADD STRING MESSSAGE TO MOD LIST
-                // INSERT BUTTON LOGIC
                 console.log('ask me btn clicked');
                 break;
+
             case "warmed":
-                // SET WARMED TO TRUE ONLY FOR FOOD
-                // INSERT BUTTON LOGIC
                 console.log('warmed btn clicked');
                 break;
+
             default:
-                break
+                break;
         }
     });
 });
 
 function add_mod_to_item(mod) {
-    const current_item_mods = current_item.modifications;
-    current_item_mods.push(mod);
-    console.log(current_item_mods);
+    console.log(current_item);
+    if (current_item) {
+        const itemId = current_item.dataset.itemId;
+        console.log(itemId);
+        const current_item_mods = current_item.modifications;
+        current_item_mods.push(mod);
+        console.log(current_item_mods);
+        const new_mod = document.createElement('li');
+        new_mod.className = 'new_mod';
+        new_mod.textContent = mod;
+        const mod_list = item_list.querySelector('.mod_list');
+        mod_list.appendChild(new_mod);
 
-    const new_mod = document.createElement('li');
-    new_mod.className = 'new_mod';
-    new_mod.textContent = mod;
+        const pairedItem = order_items.querySelector(`[data-item-id="${itemId}"]`);
+        if (pairedItem) {
+            const pairedItem_mods = pairedItem.querySelector('.mod_list');
+            pairedItem_mods.appendChild(new_mod);
+        }
+    }
 }
 
 function start_new_drink(drink) {
@@ -2096,7 +2100,7 @@ function start_new_drink(drink) {
         modifications: drink['modifications'],
         price: drink['price']['g']
     };
-    return new_drink
+    return new_drink;
 }
 
 quan_clear_btn.addEventListener('click', () => {
@@ -2112,36 +2116,33 @@ item_quan_exit.addEventListener('click', () => {
     pop_up_container.hidden = true;
 });
 
-function start_new_order() {
-    const item_list = document.createElement('ul');
-    item_list.id = 'item_list';
-    tender_items.appendChild(item_list);
-    customers_items.appendChild(item_list);
-};
-
 function clear_tender_items() {
     quantity_value = 1;
+    item_count = 0;
     tender_items.innerHTML = '';
     customers_items.innerHTML = '';
-    start_new_order();
 };
 
 
-function add_item_to_order(item) { //need to fix to add mods to items
-    console.log('add item accessed')
+function add_item_to_order(item) { //need to fix to add mods to items\
+    item_count++;
+    const itemId = `Item#: ${item_count}`
     const new_item = document.createElement('li');
     new_item.className = 'item';
-    new_item.textContent = `${quantity_value} ${item['item_name']} $${item['price']} `;
+    new_item.dataset.itemId = itemId;
+    new_item.textContent = `${item['item_name']} $${item['price']} `;
+    new_item.addEventListener('click', () => {
+        current_item = new_item;
+    });
     const mod_list = document.createElement('ul');
     mod_list.className = 'mod_list';
     new_item.appendChild(mod_list);
-    tender_items.appendChild(new_item);
+    order_items.appendChild(new_item);
     const item_clone = new_item.cloneNode(true);
-    customers_items.appendChild(item_clone);
-    quantity_value = 1;
+    item_clone.dataset.itemId = itemId;
+    item_list.appendChild(item_clone);
     current_item = new_item;
 };
-
 
 item_type_div.addEventListener('click', (e) => {
     const btn = e.target.closest('.item_type');

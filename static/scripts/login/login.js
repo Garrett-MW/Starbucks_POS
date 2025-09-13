@@ -53,7 +53,7 @@ exit_btn.addEventListener('click', async function () {
         const data = await logoutResponse.json();
         if (data.success) {
             localStorage.removeItem(drawer_key);
-            console.log('Drawer session deleted')
+            console.log('Drawer session deleted');
             await check_drawer_status();
             window.location.reload();
         } else {
@@ -70,7 +70,7 @@ pin_clear_btn.addEventListener('click', () => {
 drawers.forEach(drawer => {
     drawer.addEventListener('click', async function () {
         selected_drawer = drawer.value;
-        const drawer_key = selected_drawer.toString()
+        const drawer_key = selected_drawer.toString();
         const response = await fetch('/session', { method: 'GET' });
         const session = await response.json();
         const drawer_session = session[drawer_key];
@@ -108,8 +108,8 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
                     alert('Session Already Exists');
                     return;
                 }
-                const drawer_key = drawer_assigned.toString()
-                sessionStorage.setItem('current_drawer', selected_drawer)
+                const drawer_key = drawer_assigned.toString();
+                sessionStorage.setItem('current_drawer', selected_drawer);
                 const session_data = {
                     drawer: selected_drawer,
                     partner_num: `${partner_data['partner_num']}`,
@@ -120,7 +120,7 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
 
             } else {
                 partner_num.value = '';
-                selected_drawer = 0
+                selected_drawer = 0;
                 alert(data['error']);
                 return;
 
@@ -173,7 +173,7 @@ async function verify_partner_pin() {
 async function check_existing_session(partner_num) {
     const response = await fetch(`/sessions/${partner_num}`, { method: 'POST' });
     const data = await response.json();
-    return data
+    return data;
 
 }
 
