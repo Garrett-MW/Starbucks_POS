@@ -1,7 +1,6 @@
 'use strict'
-//  MAIN.HTML
 
-// const variables
+// DOCUMENT VARIABLES
 const item_search_div = document.querySelector('#item_search_div');
 const item_type_div = document.querySelector('#item_type_div');
 const category_btns = document.querySelectorAll('.category_btn');
@@ -17,8 +16,13 @@ const customers_items = document.getElementById('customers_items');
 const order_items = document.getElementById('order_items');
 const item_list = document.getElementById('item_list');
 const drink_btn = document.getElementById('drink_btn');
+const final_price = document.getElementById('final_price');
+const final_price_btn = document.querySelector('#final_price');
+const subtotal_price = document.getElementById('subtotal_price');
+const tax_price = document.getElementById('tax_price');
+const discounts_price = document.getElementById('discounts_price');
 
-//let variables (changing variables)
+// LET VARIABLES
 let item_count = 0;
 let current_item = '';
 let current_drawer = sessionStorage.getItem('current_drawer');
@@ -28,19 +32,10 @@ let food_data = null;
 let rtde_data = null;
 let drink_data = null;
 let beans_data = null;
+let order_total = 0.00;
 
-//when window is shown fetch necessary data and set partner name
-window.addEventListener('pageshow', () => {
 
-    clear_item_data();
-    load_item_data();
-
-    set_partner_name();
-
-    drink_btn.click();
-
-});
-//sets partner name above item_list with the parter that is in session
+///FUNCTIONS
 function set_partner_name() {
     const stored_partner = localStorage.getItem(current_drawer);
     if (stored_partner) {
@@ -50,14 +45,15 @@ function set_partner_name() {
     }
 }
 
-//clears item data variables so the data isn't multiplied
+
 function clear_item_data() {
     food_data = null;
     rtde_data = null;
     drink_data = null;
     beans_data = null;
 }
-//loads all data from backend and stores data into data variables for respective cateogory 
+
+
 function load_item_data() {
     load_drinks();
     load_beans();
@@ -66,23 +62,6 @@ function load_item_data() {
 }
 
 
-//ADD LISTENER TO CAM BUTTON
-cam_switch.addEventListener('click', () => {
-    switch (cam_power) {
-        case true:
-            stop_camera();
-            break;
-
-        case false:
-            start_camera();
-            break;
-
-        default:
-            break;
-    }
-});
-
-//DISPLAY CAMERA FEED
 function start_camera() {
     const video_tag = document.createElement('video');
     video_tag.id = 'vid';
@@ -105,14 +84,13 @@ function start_camera() {
     cam_feed_div.appendChild(video_tag);
 }
 
-//STOP CAMERA FEED
+
 function stop_camera() {
     cam_feed_div.innerHTML = '';
     cam_power = false;
 }
 
 
-//FETCH AND STORE FOOD DATA IN VARIABLE
 async function load_food() {
     try {
         const response = await fetch('/data/food');
@@ -127,7 +105,7 @@ async function load_food() {
 
 };
 
-//FETCH AND STORE RTDE DATA IN VARIABLE
+
 async function load_rtde() {
     try {
         const response = await fetch('/data/rtde');
@@ -141,7 +119,7 @@ async function load_rtde() {
     }
 };
 
-//FETCH AND STORE BEAN DATA IN VARIABLE
+
 async function load_beans() {
     try {
         const response = await fetch('/data/beans');
@@ -156,7 +134,7 @@ async function load_beans() {
 
 };
 
-//FETCH AND STORE DRINK DATA IN VARIABLE
+
 async function load_drinks() {
     try {
         const response = await fetch('/data/drinks');
@@ -170,7 +148,100 @@ async function load_drinks() {
     }
 };
 
-// ADD LISTENER TO EACH CATEGORY BUTTON TO RENDER NECESSARY CATEGORY WHEN CLICKED
+function add_item_to_order(item) { //need to fix to add mods to items
+    item_count++;
+    const itemId = item_count;
+    const new_item = document.createElement('li');
+    new_item.className = 'item';
+    new_item.dataset.itemId = itemId;
+    //new_item.dataset.price = item['price'];
+    new_item.textContent = `${item['item_name']} ${parseFloat(item['price']).toFixed(2)} `;
+    new_item.addEventListener('click', () => {
+        current_item = new_item;
+    });
+
+    const mod_list = document.createElement('ul');
+    mod_list.className = 'mod_list';
+    new_item.appendChild(mod_list);
+    order_items.appendChild(new_item);
+
+    const item_clone = new_item.cloneNode(true);
+    item_clone.dataset.itemId = itemId;
+    item_list.appendChild(item_clone);
+
+    current_item = new_item;
+    console.log(current_item)
+    order_total += item['price'];
+    subtotal_price.textContent = `$${parseFloat(order_total).toFixed(2)}`;
+    final_price.textContent = `${subtotal_price.textContent}`;
+};
+
+function add_mod_to_item(mod) {
+    if (current_item) {
+        console.log(current_item);
+        const new_mod = document.createElement('li');
+        new_mod.className = 'new_mod';
+        new_mod.textContent = mod;
+
+        // Add mod to correct item in item_list
+        const itemListItem = item_list.querySelector(`[data-item-id="${item_count}"]`);
+        console.log(itemListItem);
+        const mod_list = itemListItem ? itemListItem.querySelector('.mod_list') : null;
+        if (mod_list) {
+            mod_list.appendChild(new_mod);
+        }
+
+        // Add mod to correct item in order_items
+        const pairedItem = order_items.querySelector(`[data-item-id="${item_count}"]`);
+        const pairedItem_mods = pairedItem ? pairedItem.querySelector('.mod_list') : null;
+        if (pairedItem_mods) {
+            const cloned_mod = new_mod.cloneNode(true);
+            pairedItem_mods.appendChild(cloned_mod);
+        }
+    }
+}
+
+function start_new_drink(drink) {
+    const new_drink = {
+        abrev: drink['abrev'],
+        available: drink['available'],
+        category: drink['category'],
+        item_name: drink['item_name'],
+        modifications: drink['modifications'],
+        price: drink['price']['g']
+    };
+    return new_drink;
+}
+
+
+
+//EVENT LISTENERS
+window.addEventListener('pageshow', () => {
+
+    clear_item_data();
+    load_item_data();
+    set_partner_name();
+    drink_btn.click();
+
+});
+
+
+cam_switch.addEventListener('click', () => {
+    switch (cam_power) {
+        case true:
+            stop_camera();
+            break;
+
+        case false:
+            start_camera();
+            break;
+
+        default:
+            break;
+    }
+});
+
+
 category_btns.forEach(btn => {
     const name = btn.value;
     btn.addEventListener('click', async function () {
@@ -1066,7 +1137,7 @@ category_btns.forEach(btn => {
                                         btn_div.appendChild(button);
 
                                         button.addEventListener('click', () => {
-                                            console.log(`${button.label} Button Clicked`); //dont think I need swtich for this
+                                            console.log(`${button.label} Button Clicked`);
                                         });
                                     }
                                     shots_content_div.appendChild(btn_div);
@@ -1974,7 +2045,7 @@ checkout_btns.forEach(btn => {
                 });
                 break;
             case "customer":
-                console.log('Customer name btn clicked');
+                console.log('customer btn clicked');
                 break;
 
             default:
@@ -1991,14 +2062,19 @@ func_btns.forEach(btn => {
         switch (name) {
             case "void":
                 if (current_item) {
+                    const previous_item = current_item.previousElementSibling;
                     const itemId = current_item.dataset.itemId;
+                    console.log(`${current_item}`);
                     order_items.removeChild(current_item);
                     const pairedItem = item_list.querySelector(`[data-item-id="${itemId}"]`);
                     if (pairedItem) {
                         item_list.removeChild(pairedItem);
                     }
+                    order_total -= current_item.dataset.price;
+                    subtotal_price.textContent = `$${order_total.toFixed(2)}`;
+                    final_price.textContent = `$${order_total.toFixed(2)}`;
                     item_count--;
-                    current_item = null;
+                    current_item = previous_item;
                 }
                 break;
 
@@ -2016,7 +2092,15 @@ func_btns.forEach(btn => {
                 break;
 
             case "cancel":
-                clear_tender_items();
+                quantity_value = 1;
+                item_count = 0;
+                subtotal_price = 0.00;
+                tax_price = 0.00;
+                discounts_price = 0.00;
+                final_price.textContent = `$0.00`;
+                order_total = 0.00;
+                order_items.innerHTML = '';
+                item_list.innerHTML = '';
                 break;
 
             case "togo":
@@ -2069,40 +2153,6 @@ addit_btns.forEach(btn => {
     });
 });
 
-function add_mod_to_item(mod) {
-    console.log(current_item);
-    if (current_item) {
-        const itemId = current_item.dataset.itemId;
-        console.log(itemId);
-        const current_item_mods = current_item.modifications;
-        current_item_mods.push(mod);
-        console.log(current_item_mods);
-        const new_mod = document.createElement('li');
-        new_mod.className = 'new_mod';
-        new_mod.textContent = mod;
-        const mod_list = item_list.querySelector('.mod_list');
-        mod_list.appendChild(new_mod);
-
-        const pairedItem = order_items.querySelector(`[data-item-id="${itemId}"]`);
-        if (pairedItem) {
-            const pairedItem_mods = pairedItem.querySelector('.mod_list');
-            pairedItem_mods.appendChild(new_mod);
-        }
-    }
-}
-
-function start_new_drink(drink) {
-    const new_drink = {
-        abrev: drink['abrev'],
-        available: drink['available'],
-        category: drink['category'],
-        item_name: drink['item_name'],
-        modifications: drink['modifications'],
-        price: drink['price']['g']
-    };
-    return new_drink;
-}
-
 quan_clear_btn.addEventListener('click', () => {
     item_quan.innerHTML = 0;
 });
@@ -2116,44 +2166,11 @@ item_quan_exit.addEventListener('click', () => {
     pop_up_container.hidden = true;
 });
 
-function clear_tender_items() {
-    quantity_value = 1;
-    item_count = 0;
-    tender_items.innerHTML = '';
-    customers_items.innerHTML = '';
-};
-
-
-function add_item_to_order(item) { //need to fix to add mods to items\
-    item_count++;
-    const itemId = `Item#: ${item_count}`
-    const new_item = document.createElement('li');
-    new_item.className = 'item';
-    new_item.dataset.itemId = itemId;
-    new_item.textContent = `${item['item_name']} $${item['price']} `;
-    new_item.addEventListener('click', () => {
-        current_item = new_item;
-    });
-    const mod_list = document.createElement('ul');
-    mod_list.className = 'mod_list';
-    new_item.appendChild(mod_list);
-    order_items.appendChild(new_item);
-    const item_clone = new_item.cloneNode(true);
-    item_clone.dataset.itemId = itemId;
-    item_list.appendChild(item_clone);
-    current_item = new_item;
-};
-
 item_type_div.addEventListener('click', (e) => {
     const btn = e.target.closest('.item_type');
     if (!btn) return;
 });
 
-const final_price_btn = document.querySelector('#final_price');
 final_price_btn.addEventListener('click', () => {
     console.log('final price btn clicked');
 });
-
-
-
-

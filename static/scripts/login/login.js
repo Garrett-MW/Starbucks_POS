@@ -96,7 +96,7 @@ enter_btn.addEventListener('click', async function verify_partner_num() {
     }
     else {
         try {
-            const response = await fetch(`/login/${partner_num.value}/${drawer_assigned}`, { method: 'POST' }); //PROBLEM: messes up if pin is entered wrong doesnt creata cookie if multiple tries 
+            const response = await fetch(`/login/${partner_num.value}/${drawer_assigned}`, { method: 'POST' });
             const data = await response.json();
             const partner_data = data['partner'];
 
