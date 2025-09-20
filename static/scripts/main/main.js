@@ -21,6 +21,8 @@ const final_price_btn = document.querySelector('#final_price');
 const subtotal_price = document.getElementById('subtotal_price');
 const tax_price = document.getElementById('tax_price');
 const discounts_price = document.getElementById('discounts_price');
+const pin_pad_btns = document.querySelectorAll('.pin_pad');
+const item_quan = document.getElementById('item_quan');
 
 // LET VARIABLES
 let item_count = 0;
@@ -33,9 +35,13 @@ let rtde_data = null;
 let drink_data = null;
 let beans_data = null;
 let order_total = 0.00;
+let customer_name = '';
+let current_order = [];
+let syrup_amount = 0;
 
 
 ///FUNCTIONS
+
 function set_partner_name() {
     const stored_partner = localStorage.getItem(current_drawer);
     if (stored_partner) {
@@ -148,51 +154,42 @@ async function load_drinks() {
     }
 };
 
-function add_item_to_order(item) { //need to fix to add mods to items
-    item_count++;
+function add_item_to_order(item) {
     const itemId = item_count;
     const new_item = document.createElement('li');
     new_item.className = 'item';
     new_item.dataset.itemId = itemId;
-    //new_item.dataset.price = item['price'];
     new_item.textContent = `${item['item_name']} ${parseFloat(item['price']).toFixed(2)} `;
     new_item.addEventListener('click', () => {
         current_item = new_item;
     });
-
     const mod_list = document.createElement('ul');
     mod_list.className = 'mod_list';
     new_item.appendChild(mod_list);
     order_items.appendChild(new_item);
-
     const item_clone = new_item.cloneNode(true);
     item_clone.dataset.itemId = itemId;
     item_list.appendChild(item_clone);
-
     current_item = new_item;
-    console.log(current_item)
     order_total += item['price'];
     subtotal_price.textContent = `$${parseFloat(order_total).toFixed(2)}`;
     final_price.textContent = `${subtotal_price.textContent}`;
+    current_order.push(item)
+    item_count++;
 };
 
-function add_mod_to_item(mod) {
+function add_mod_to_item(mod) { //need to fix line 188 not reading itemID
     if (current_item) {
-        console.log(current_item);
         const new_mod = document.createElement('li');
         new_mod.className = 'new_mod';
         new_mod.textContent = mod;
-
-        // Add mod to correct item in item_list
-        const itemListItem = item_list.querySelector(`[data-item-id="${item_count}"]`);
-        console.log(itemListItem);
+        const itemId = current_item.dataset.itemId;
+        const itemListItem = item_list.querySelector(`[data-item-id="${itemId}"]`);
         const mod_list = itemListItem ? itemListItem.querySelector('.mod_list') : null;
         if (mod_list) {
             mod_list.appendChild(new_mod);
         }
-
-        // Add mod to correct item in order_items
-        const pairedItem = order_items.querySelector(`[data-item-id="${item_count}"]`);
+        const pairedItem = order_items.querySelector(`[data-item-id="${itemId}"]`);
         const pairedItem_mods = pairedItem ? pairedItem.querySelector('.mod_list') : null;
         if (pairedItem_mods) {
             const cloned_mod = new_mod.cloneNode(true);
@@ -208,7 +205,7 @@ function start_new_drink(drink) {
         category: drink['category'],
         item_name: drink['item_name'],
         modifications: drink['modifications'],
-        price: drink['price']['g']
+        price: drink['price']['g'] || drink['price']['s']
     };
     return new_drink;
 }
@@ -288,8 +285,8 @@ category_btns.forEach(btn => {
 
                                     pastry_btn.addEventListener('click', () => {
 
-                                        console.log(pastry);
                                         add_item_to_order(pastry);
+                                        current_drawer = pastry;
 
                                     });
 
@@ -324,10 +321,8 @@ category_btns.forEach(btn => {
 
                                     loaf_btn.addEventListener('click', () => {
 
-
-                                        console.log(loaf);
                                         add_item_to_order(loaf);
-
+                                        current_item = loaf;
 
                                     });
 
@@ -361,8 +356,8 @@ category_btns.forEach(btn => {
 
                                     croissant_btn.addEventListener('click', () => {
 
-                                        console.log(croissant);
                                         add_item_to_order(croissant);
+                                        current_item = croissant;
 
                                     });
 
@@ -396,8 +391,8 @@ category_btns.forEach(btn => {
 
                                     lunch_btn.addEventListener('click', () => {
 
-                                        console.log(item);
                                         add_item_to_order(item);
+                                        current_item = item;
 
                                     });
 
@@ -431,8 +426,8 @@ category_btns.forEach(btn => {
 
                                     brownie_btn.addEventListener('click', () => {
 
-                                        console.log(brownie);
                                         add_item_to_order(brownie);
+                                        current_item = brownie;
 
                                     });
 
@@ -466,8 +461,8 @@ category_btns.forEach(btn => {
 
                                     breakfast_btn.addEventListener('click', () => {
 
-                                        console.log(item);
                                         add_item_to_order(item);
+                                        current_item = item;
 
                                     });
 
@@ -532,8 +527,8 @@ category_btns.forEach(btn => {
 
                                     juice_btn.addEventListener('click', () => {
 
-                                        console.log(juice);
                                         add_item_to_order(juice);
+                                        current_item = juice;
 
                                     });
 
@@ -567,8 +562,8 @@ category_btns.forEach(btn => {
 
                                     soda_btn.addEventListener('click', () => {
 
-                                        console.log(soda);
                                         add_item_to_order(soda);
+                                        current_item = soda;
 
                                     });
 
@@ -601,8 +596,8 @@ category_btns.forEach(btn => {
 
                                     impulse_btn.addEventListener('click', () => {
 
-                                        console.log(impulse);
                                         add_item_to_order(impulse);
+                                        current_item = impulse;
 
                                     });
 
@@ -634,7 +629,9 @@ category_btns.forEach(btn => {
                                     regional_btn.value = item.price;
 
                                     regional_btn.addEventListener('click', () => {
+
                                         console.log(`${regional_btn.textContent} btn clicked`);
+
                                     });
 
                                     regional_div.appendChild(regional_btn);
@@ -950,7 +947,10 @@ category_btns.forEach(btn => {
                                     core_btn.textContent = bean.item_name;
                                     core_btn.value = bean.price;
                                     core_btn.addEventListener('click', () => {
+
                                         add_item_to_order(bean);
+                                        current_item = bean;
+
                                     });
                                     core_div.appendChild(core_btn);
                                 });
@@ -980,7 +980,10 @@ category_btns.forEach(btn => {
                                     reserve_btn.textContent = bean.item_name;
                                     reserve_btn.value = bean.price;
                                     reserve_btn.addEventListener('click', () => {
-                                        console.log(`${reserve_btn.textContent} btn clicked`);
+
+                                        add_item_to_order(bean);
+                                        current_item = bean;
+
                                     });
                                     reserve_div.appendChild(reserve_btn);
                                 });
@@ -1137,7 +1140,9 @@ category_btns.forEach(btn => {
                                         btn_div.appendChild(button);
 
                                         button.addEventListener('click', () => {
+
                                             console.log(`${button.label} Button Clicked`);
+
                                         });
                                     }
                                     shots_content_div.appendChild(btn_div);
@@ -1173,19 +1178,22 @@ category_btns.forEach(btn => {
                                         const name = syrup_btn.value;
                                         switch (name) {
                                             case "no":
-                                                console.log('no btn clicked');
+                                                syrup_amount = 'no';
                                                 break;
 
                                             case "sub":
-                                                console.log('sub syrup btn clicked');
+                                                syrup_amount = 'sub';
                                                 break;
 
                                             case "extra":
-                                                console.log('extra btn clicked');
+                                                syrup_amount = 'extra';
                                                 break;
 
                                             case "light":
-                                                console.log('light btn clicked');
+                                                syrup_amount = 'light'
+                                                break;
+
+                                            case 'pumps':
                                                 break;
 
                                             default:
@@ -1221,7 +1229,9 @@ category_btns.forEach(btn => {
                                     syrup_choices_div.appendChild(syrup_btn);
 
                                     syrup_btn.addEventListener('click', () => {
-                                        add_mod_to_item(syrup_btn.textContent);
+
+                                        add_mod_to_item(`${syrup_amount} ${syrup_btn.textContent}`);
+
                                     });
 
                                 });
@@ -1243,7 +1253,9 @@ category_btns.forEach(btn => {
                                     sauce_choices_div.appendChild(sauce_btn);
 
                                     sauce_btn.addEventListener('click', () => {
-                                        add_mod_to_item(sauce_btn.textContent);
+
+                                        add_mod_to_item(`${syrup_amount} ${sauce_btn.textContent}`);
+
                                     });
                                 });
 
@@ -1261,7 +1273,9 @@ category_btns.forEach(btn => {
                                     seasonal_options_div.appendChild(option_btn);
 
                                     option_btn.addEventListener('click', () => {
-                                        add_mod_to_item(option_btn.textContent);
+
+                                        add_mod_to_item(`${syrup_amount} ${option_btn.textContent}`);
+
                                     });
                                 });
 
@@ -1326,7 +1340,9 @@ category_btns.forEach(btn => {
                                     milk_btn.value = milk.value;
 
                                     milk_btn.addEventListener('click', () => {
+
                                         add_mod_to_item(milk_btn.textContent);
+
                                     });
 
                                     replace_milk_div.appendChild(milk_btn);
@@ -1378,7 +1394,9 @@ category_btns.forEach(btn => {
                                     splash_milk_btn.value = milk.value;
 
                                     splash_milk_btn.addEventListener('click', () => {
+
                                         add_mod_to_item(splash_milk_btn.textContent);
+
                                     });
 
                                     splash_milk_div.appendChild(splash_milk_btn);
@@ -1427,7 +1445,9 @@ category_btns.forEach(btn => {
                                     custom_mod_btn.className = 'custom_btns';
 
                                     custom_mod_btn.addEventListener('click', () => {
+
                                         console.log(`${mod.label} btn clicked`);
+
                                     });
 
                                     custom_mods.appendChild(custom_mod_btn);
@@ -1494,7 +1514,9 @@ category_btns.forEach(btn => {
                                                         cf_btn.textContent = cf.label;
 
                                                         cf_btn.addEventListener('click', () => {
+
                                                             add_mod_to_item(cf_btn.textContent);
+
                                                         });
 
                                                         cf_div.appendChild(cf_btn);
@@ -1508,7 +1530,9 @@ category_btns.forEach(btn => {
 
                                             default:
                                                 custom_btn.addEventListener('click', () => {
+
                                                     add_mod_to_item(custom.label);
+
                                                 });
                                                 break;
                                         }
@@ -1536,8 +1560,9 @@ category_btns.forEach(btn => {
                                     switch (extra.label) {
                                         case 'More Custom Directions':
                                             extra_custom_btn.addEventListener('click', () => {
-                                                items_div.innerHTML = 'More Custom Toppings and Inclusions';
-                                                console.log(`${extra.label} btn clicked`);
+
+                                                items_div.innerHTML = 'More Custom Toppings and Inclusions'; //need to add buttons to this page 
+
                                             });
                                             break;
 
@@ -1577,7 +1602,9 @@ category_btns.forEach(btn => {
                                                     topping_btn.textContent = topping.label;
 
                                                     topping_btn.addEventListener('click', () => {
+
                                                         add_mod_to_item(topping_btn.textContent);
+
                                                     });
 
                                                     extra_top_div.appendChild(topping_btn);
@@ -1590,7 +1617,9 @@ category_btns.forEach(btn => {
 
                                         default:
                                             extra_custom_btn.addEventListener('click', () => {
+
                                                 add_mod_to_item(extra_custom_btn.textContent);
+
                                             });
                                             break;
                                     }
@@ -1628,6 +1657,7 @@ category_btns.forEach(btn => {
                     bev_type_btn.textContent = btn.label;
                     bev_type_btn.value = btn.value;
                     bev_type_btn.addEventListener('click', () => {
+
                         const name = bev_type_btn.value;
 
                         switch (name) {
@@ -1648,7 +1678,7 @@ category_btns.forEach(btn => {
                                     brewed_btn.addEventListener('click', () => {
                                         const new_drink = start_new_drink(drink);
                                         add_item_to_order(new_drink);
-                                        current_item = new_drink;
+                                        current_item = order_items.lastElementChild;
                                     });
 
                                     brewed_div.appendChild(brewed_btn);
@@ -1673,9 +1703,11 @@ category_btns.forEach(btn => {
                                     espresso_btn.value = drink.price;
 
                                     espresso_btn.addEventListener('click', () => {
+
                                         const new_drink = start_new_drink(drink);
                                         add_item_to_order(new_drink);
-                                        current_item = new_drink;
+                                        current_item = order_items.lastElementChild;
+
                                     });
 
                                     espresso_div.appendChild(espresso_btn);
@@ -1700,9 +1732,11 @@ category_btns.forEach(btn => {
                                     blended_btn.value = drink.price;
 
                                     blended_btn.addEventListener('click', () => {
+
                                         const new_drink = start_new_drink(drink);
                                         add_item_to_order(new_drink);
-                                        current_item = new_drink;
+                                        current_item = order_items.lastElementChild;
+
                                     });
 
                                     blended_div.appendChild(blended_btn);
@@ -1727,9 +1761,11 @@ category_btns.forEach(btn => {
                                     tea_btn.value = drink.price;
 
                                     tea_btn.addEventListener('click', () => {
+
                                         const new_drink = start_new_drink(drink);
                                         add_item_to_order(new_drink);
-                                        current_item = new_drink;
+                                        current_item = order_items.lastElementChild;
+
                                     });
 
                                     tea_div.appendChild(tea_btn);
@@ -1756,7 +1792,7 @@ category_btns.forEach(btn => {
                                     other_btn.addEventListener('click', () => {
                                         const new_drink = start_new_drink(drink);
                                         add_item_to_order(new_drink);
-                                        current_item = new_drink;
+                                        current_item = order_items.lastElementChild;
                                     });
 
                                     other_div.appendChild(other_btn);
@@ -2036,8 +2072,6 @@ checkout_btns.forEach(btn => {
         switch (name) {
             case "quantity":
                 quantity_pop_up.hidden = false;
-                const pin_pad_btns = document.querySelectorAll('.pin_pad');
-                const item_quan = document.getElementById('item_quan');
                 pin_pad_btns.forEach(btn => {
                     btn.addEventListener('click', () => {
                         item_quan.value += btn.value;
@@ -2045,7 +2079,8 @@ checkout_btns.forEach(btn => {
                 });
                 break;
             case "customer":
-                console.log('customer btn clicked');
+                const name = prompt('Enter Customer Name: ')
+                customer_name = name;
                 break;
 
             default:
@@ -2064,7 +2099,6 @@ func_btns.forEach(btn => {
                 if (current_item) {
                     const previous_item = current_item.previousElementSibling;
                     const itemId = current_item.dataset.itemId;
-                    console.log(`${current_item}`);
                     order_items.removeChild(current_item);
                     const pairedItem = item_list.querySelector(`[data-item-id="${itemId}"]`);
                     if (pairedItem) {
@@ -2083,10 +2117,14 @@ func_btns.forEach(btn => {
                 break;
 
             case "discount":
-                console.log('discount btn clicked');
+                const discount_amount = prompt('Enter Discount Amount')
+                discounts_price.textContent = discount_amount;
+                const current_total = order_total.textContent; //convert string to proper data type in order to subtract from order total
+                order_total.innerHTML = current_total - (discounts_price);
                 break;
 
             case 'logout':
+                customer_name = '';
                 sessionStorage.clear()
                 window.location.replace('/');
                 break;
@@ -2094,13 +2132,15 @@ func_btns.forEach(btn => {
             case "cancel":
                 quantity_value = 1;
                 item_count = 0;
-                subtotal_price = 0.00;
-                tax_price = 0.00;
-                discounts_price = 0.00;
+                subtotal_price.textContent = 0.00;
+                tax_price.textContent = 0.00;
+                discounts_price.textContent = 0.00;
                 final_price.textContent = `$0.00`;
                 order_total = 0.00;
                 order_items.innerHTML = '';
                 item_list.innerHTML = '';
+                customer_name = '';
+                current_order = [];
                 break;
 
             case "togo":
@@ -2108,7 +2148,18 @@ func_btns.forEach(btn => {
                 break;
 
             case "save":
-                console.log('save btn clicked');
+                //insert api call to add order to DB
+                quantity_value = 1;
+                item_count = 0;
+                subtotal_price.textContent = 0.00;
+                tax_price.textContent = 0.00;
+                discounts_price.textContent = 0.00;
+                final_price.textContent = `$0.00`;
+                order_total = 0.00;
+                order_items.innerHTML = '';
+                item_list.innerHTML = '';
+                customer_name = '';
+                current_order = [];
                 break;
 
             default:
@@ -2140,11 +2191,15 @@ addit_btns.forEach(btn => {
                 break;
 
             case "askme":
-                console.log('ask me btn clicked');
+                const askme_string = prompt('Enter Instructions');
+                add_mod_to_item(askme_string);
                 break;
 
             case "warmed":
-                console.log('warmed btn clicked');
+                if (current_item && 'warmed' in current_item) {
+                    current_item['warmed'] = !current_item['warmed'];
+                    console.log(current_item['warmed']);
+                }
                 break;
 
             default:

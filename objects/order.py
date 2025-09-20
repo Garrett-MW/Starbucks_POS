@@ -1,10 +1,11 @@
 import datetime
+from .db import DB
 from .ticket import Ticket
 
 
 class Order:
 
-    def __init__(self, name, order_id, item_count, list, method): # creates order object when called | Order(params)
+    def __init__(self, name, order_id, item_count, list, method, total, status):
 
         date_time = datetime.datetime.now() # get current date/time
         formatted_date_time = date_time.strftime("%m/%d/%Y, %H:%M")
@@ -15,9 +16,11 @@ class Order:
         self.order_id = order_id
         self.item_count = item_count
         self.list = list
-        self.method = method
+        self.method = method ##for here or togo
         self.date = current_date
         self.time = current_time
+        self.total = total
+        self.status = status
 
         tickets = [] # create empty list of tickets
         count = 1 #set count to 1 for first item of order
@@ -38,8 +41,12 @@ class Order:
         string += f'\nOrder ID: {self.order_id}'
         string += f'\nItems: {self.item_count}'
         string += f'\nPickup Method: {self.method}'
+        string += f'\nTotal: {self.total}'
         string += f'\nTime Placed: {self.time}'
-        string += f'\nDate Placed: {self.date}\n'
+        string += f'\nDate Placed: {self.date}'
+        string += f'\nStatus: {self.status}\n'
         return string
     
-
+    def db_insert_order(self):
+        db = DB()
+        db.insert_order({self.order_id, self.name, self.item_count, self.list, self.method, self.status, self.total})
